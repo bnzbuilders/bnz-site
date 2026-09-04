@@ -84,3 +84,49 @@ npm run start
 `index.html` and `CNAME` at the repo root are the current GitHub Pages site for
 buildwithbnz.com. The Next.js build ignores them; they are left in place so the
 live domain keeps serving while the new site is finished.
+
+## Deploying it live
+
+The app needs two things a static host cannot give it: a Node server and a
+Postgres database. Think of it like a jobsite — the site itself (Vercel) and the
+utility hookup (Postgres). Both have to be there before anyone can work.
+
+### 1. Database
+
+Create a Postgres database with any hosted provider (Neon, Supabase, and Railway
+all have a free tier). Copy the connection string it gives you.
+
+### 2. Host
+
+Import this repo on Vercel (or Render / Railway — anything that runs Node 20+).
+Set these environment variables in the host's dashboard:
+
+| Variable | Value |
+| --- | --- |
+| `DATABASE_URL` | the connection string from step 1 |
+| `APP_PASSCODE` | the office sign-in code for `/app` |
+| `APP_SESSION_SECRET` | any long random string |
+
+On Vercel the `vercel-build` script runs migrations automatically on every
+deploy. On another host, run `npm run db:deploy` after the build.
+
+### 3. Seed the two jobs, once
+
+With `DATABASE_URL` pointed at the live database:
+
+```bash
+npm run db:seed
+```
+
+### 4. Domain
+
+`buildwithbnz.com` currently serves the legacy `index.html` from GitHub Pages.
+Two options, pick one:
+
+- **Safe:** point a subdomain such as `app.buildwithbnz.com` at the new host and
+  leave the live site alone until the new marketing pages are approved.
+- **Cutover:** move `buildwithbnz.com` to the new host, then delete `index.html`
+  and `CNAME` from this repo.
+
+Leave `QUICKBOOKS_*`, `GMAIL_*`, and `SMS_*` unset. Those integrations are stubs
+and setting the variables does not connect anything.
