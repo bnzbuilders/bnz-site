@@ -1,0 +1,323 @@
+// BNZ Builders INC — ops app schema.
+// Money is stored in integer cents. Never store a dollar amount that did not
+// come off a real document (PO, receipt, invoice, signed quote).
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum ProjectStatus {
+  LEAD
+  BIDDING
+  AWARDED
+  ACTIVE
+  PUNCHLIST
+  CLOSED
+}
+
+enum ProjectType {
+  COMMERCIAL_RENO
+  TENANT_FITOUT
+  INSTITUTIONAL
+  PUBLIC_WORKS
+  RESIDENTIAL
+  SITE_WORK
+}
+
+enum CostCategory {
+  MATERIAL
+  LABOR
+  SUBCONTRACT
+  EQUIPMENT
+  PERMIT
+  OTHER
+}
+
+enum EstimateStatus {
+  DRAFT
+  IN_REVIEW
+  SUBMITTED
+  WON
+  LOST
+  NO_BID
+}
+
+enum RfqStatus {
+  DRAFT
+  SENT
+  QUOTED
+  AWARDED
+  DECLINED
+}
+
+enum SubStatus {
+  PROSPECT
+  APPROVED
+  ON_HOLD
+  DO_NOT_USE
+}
+
+enum ComplianceDocType {
+  W9
+  COI_GENERAL_LIABILITY
+  COI_WORKERS_COMP
+  COI_AUTO
+  LICENSE
+  MBE_WBE_CERT
+}
+
+enum ComplianceStatus {
+  MISSING
+  REQUESTED
+  CURRENT
+  EXPIRED
+}
+
+enum BillStatus {
+  UNPAID
+  APPROVED
+  PAID
+  DISPUTED
+}
+
+enum Agent {
+  SARA
+  EMMA
+  TAYLOR
+}
+
+enum DraftKind {
+  CLIENT_EMAIL
+  SUB_OUTREACH
+  RFQ
+  MORNING_MONEY
+  BID_COVER
+  COI_CHASE
+  OTHER
+}
+
+// Nothing leaves this app on its own. A human moves a draft forward.
+enum DraftStatus {
+  DRAFT
+  PENDING_APPROVAL
+  APPROVED
+  SENT
+  DISCARDED
+}
+
+enum InboxStatus {
+  UNREAD
+  ROUTED
+  ANSWERED
+  ARCHIVED
+}
+
+model Project {
+  id          String        @id @default(cuid())
+  code        String        @unique // short internal handle, e.g. VIENNA
+  name        String
+  client      String
+  poNumber    String?
+  address     String?
+  county      String?
+  type        ProjectType
+  status      ProjectStatus @default(ACTIVE)
+  budgetCents Int // contract / PO value in cents. From the PO only.
+  startedOn   DateTime?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  costs     CostEntry[]
+  estimates Estimate[]
+  rfqs      Rfq[]
+  bills     Bill[]
+  drafts    Draft[]
+  notes     ProjectNote[]
+  caps      SpendCap[]
+  messages  InboxMessage[]
+}
+
+// Job-cost ledger. One row per document. Costs never cross projects.
+model CostEntry {
+  id          String       @id @default(cuid())
+  projectId   String
+  project     Project      @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  incurredOn  DateTime? // date on the receipt; null until the document is keyed in
+  vendor      String
+  category    CostCategory
+  description String
+  amountCents Int
+  docRef      String? // receipt / invoice number backing this line
+  postedBy    String       @default("Emma")
+  createdAt   DateTime     @default(now())
+
+  @@index([projectId])
+}
+
+// A hard ceiling a human set on a scope, e.g. the first paint/protection buy.
+model SpendCap {
+  id        String   @id @default(cuid())
+  projectId String
+  project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  label     String
+  capCents  Int
+  note      String?
+  createdAt DateTime @default(now())
+
+  @@index([projectId])
+}
+
+model ProjectNote {
+  id        String   @id @default(cuid())
+  projectId String
+  project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  body      String
+  author    String   @default("Sara Cooper")
+  createdAt DateTime @default(now())
+
+  @@index([projectId])
+}
+
+model Estimate {
+  id         String         @id @default(cuid())
+  title      String
+  client     String
+  projectId  String?
+  project    Project?       @relation(fields: [projectId], references: [id])
+  status     EstimateStatus @default(DRAFT)
+  dueOn      DateTime?
+  owner      String         @default("Taylor")
+  totalCents Int? // null until Taylor prices it. Do not guess.
+  notes      String?
+  createdAt  DateTime       @default(now())
+  updatedAt  DateTime       @updatedAt
+
+  lines EstimateLine[]
+}
+
+model EstimateLine {
+  id            String   @id @default(cuid())
+  estimateId    String
+  estimate      Estimate @relation(fields: [estimateId], references: [id], onDelete: Cascade)
+  division      String? // CSI division or trade
+  description   String
+  qty           Float
+  unit          String
+  unitCostCents Int
+  burdenPct     Float    @default(0) // labor burden / prevailing wage uplift
+  markupPct     Float    @default(0)
+  sortOrder     Int      @default(0)
+
+  @@index([estimateId])
+}
+
+model Subcontractor {
+  id      String    @id @default(cuid())
+  name    String
+  trade   String
+  contact String?
+  email   String?
+  phone   String?
+  county  String?
+  status  SubStatus @default(PROSPECT)
+  notes   String?
+
+  createdAt DateTime @default(now())
+
+  docs  ComplianceDoc[]
+  rfqs  Rfq[]
+  bills Bill[]
+}
+
+model ComplianceDoc {
+  id        String            @id @default(cuid())
+  subId     String
+  sub       Subcontractor     @relation(fields: [subId], references: [id], onDelete: Cascade)
+  type      ComplianceDocType
+  status    ComplianceStatus  @default(MISSING)
+  expiresOn DateTime?
+  fileRef   String?
+  updatedAt DateTime          @updatedAt
+
+  @@index([subId])
+}
+
+model Rfq {
+  id         String         @id @default(cuid())
+  projectId  String
+  project    Project        @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  trade      String
+  scope      String
+  dueOn      DateTime?
+  status     RfqStatus      @default(DRAFT)
+  subId      String?
+  sub        Subcontractor? @relation(fields: [subId], references: [id])
+  quoteCents Int? // only once a written quote is in hand
+  createdAt  DateTime       @default(now())
+
+  @@index([projectId])
+}
+
+model Bill {
+  id            String         @id @default(cuid())
+  projectId     String
+  project       Project        @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  vendor        String
+  subId         String?
+  sub           Subcontractor? @relation(fields: [subId], references: [id])
+  invoiceNumber String?
+  amountCents   Int
+  dueOn         DateTime?
+  status        BillStatus     @default(UNPAID)
+  createdAt     DateTime       @default(now())
+
+  @@index([projectId])
+}
+
+// Everything an agent writes lands here first. Approve / Send are human moves.
+model Draft {
+  id         String      @id @default(cuid())
+  agent      Agent
+  kind       DraftKind
+  status     DraftStatus @default(DRAFT)
+  subject    String
+  recipient  String?
+  body       String
+  projectId  String?
+  project    Project?    @relation(fields: [projectId], references: [id])
+  approvedBy String?
+  approvedAt DateTime?
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+}
+
+model InboxMessage {
+  id         String      @id @default(cuid())
+  fromName   String
+  fromEmail  String
+  subject    String
+  preview    String
+  receivedAt DateTime
+  status     InboxStatus @default(UNREAD)
+  routedTo   Agent?
+  projectId  String?
+  project    Project?    @relation(fields: [projectId], references: [id])
+}
+
+// Public site "request estimate" submissions. Marketing in, ops picks up.
+model EstimateRequest {
+  id        String   @id @default(cuid())
+  name      String
+  company   String?
+  email     String
+  phone     String?
+  location  String?
+  scope     String
+  createdAt DateTime @default(now())
+  handled   Boolean  @default(false)
+}
