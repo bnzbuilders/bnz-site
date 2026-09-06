@@ -16,14 +16,17 @@
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/css/site.css" />
+  
 </head>
 <body>
+<header class="nav">
   <a class="brand" href="/"><span class="mark">B</span> BNZ BUILDERS</a>
   <button class="menu-btn" type="button" onclick="document.querySelector('nav.links').classList.toggle('open')">Menu</button>
-  <nav class="links"><a href="/" aria-current="page">Home</a><a href="/#ai-crew">AI Crew</a><a href="/about/">About</a><a href="/services/">Services</a><a href="/work/">Work</a><a href="/public-works/">Public Works</a><a href="/credentials/">Credentials</a><a href="/contact/">Contact</a><a href="/login/">Login</a></nav>
+  <nav class="links"><a href="/">Home</a><a href="/crew/">Crew</a><a href="/sara/">Sara</a><a href="/taylor/">Taylor</a><a href="/emma/">Emma</a><a href="/services/">Services</a><a href="/work/">Work</a><a href="/about/">About</a><a href="/contact/">Contact</a><a href="/login/">Login</a></nav>
   <a class="btn" href="/login/">Start</a>
+</header>
 <section class="hero" style="--hero:url(https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=2000&q=80)">
   <div class="hero-bg"></div>
   <div class="hero-inner">
@@ -44,35 +47,41 @@
 <section id="ai-crew">
   <div class="kicker">BuildWithBNZ</div>
   <h2>Meet your AI construction crew</h2>
-  <p class="muted" style="max-width:560px">Three agents built for U.S. general contractors. Sara runs ops. Taylor estimates. Emma organizes and closes. They collaborate so you do not repeat the project to each one.</p>
-  <div class="grid3" style="margin-top:24px">
-    <a class="card" href="/sara/">
-      <p class="kicker">COO</p>
+  <p class="muted" style="max-width:640px">About half the product is the crew. Sara runs operations. Taylor estimates. Emma organizes and closes. They collaborate so you do not repeat the project to each one.</p>
+  <div class="grid3" style="margin-top:28px">
+    <a class="card crew-card sara" href="/sara/">
+      <span class="crew-mark sara">S</span>
+      <p class="kicker">AI Construction COO</p>
       <h3>Sara</h3>
-      <p>AI Construction COO — run the company: bids, email, schedules, priorities. She drafts. You approve.</p>
-      <p style="color:var(--orange);font-weight:600;margin-top:12px">Meet Sara</p>
+      <p style="color:var(--ink);font-weight:600;margin:8px 0 0">Run the company</p>
+      <p>Operations, bids, email, schedules, and priorities. She drafts. You approve.</p>
+      <p class="crew-cta">Meet Sara →</p>
     </a>
-    <a class="card" href="/taylor/">
-      <p class="kicker">Estimator</p>
+    <a class="card crew-card taylor" href="/taylor/">
+      <span class="crew-mark taylor">T</span>
+      <p class="kicker">AI Construction Estimator</p>
       <h3>Taylor</h3>
-      <p>AI Construction Estimator — plans, scope, takeoff, quotes. Never invents SF, wages, or bid totals.</p>
-      <p style="color:var(--orange);font-weight:600;margin-top:12px">Meet Taylor</p>
+      <p style="color:var(--ink);font-weight:600;margin:8px 0 0">Estimate and bid</p>
+      <p>Plans, scope, takeoff, labor, material, and proposals. UNKNOWN stays UNKNOWN.</p>
+      <p class="crew-cta">Meet Taylor →</p>
     </a>
-    <a class="card" href="/emma/">
-      <p class="kicker">Coordinator</p>
+    <a class="card crew-card emma" href="/emma/">
+      <span class="crew-mark emma">E</span>
+      <p class="kicker">AI Project Coordinator</p>
       <h3>Emma</h3>
-      <p>AI Project Coordinator — documents, compliance, SDS/OSHA/COI/W-9, invoices, closeout. Asks “What is missing?”</p>
-      <p style="color:var(--orange);font-weight:600;margin-top:12px">Meet Emma</p>
+      <p style="color:var(--ink);font-weight:600;margin:8px 0 0">Organize and close projects</p>
+      <p>Documents, SDS, OSHA, COI, W-9, submittals, invoices, and closeout.</p>
+      <p class="crew-cta">Meet Emma →</p>
     </a>
   </div>
 </section>
 <section id="how-it-works">
-  <div class="kicker">How it works</div>
-  <h2>How the crew works together</h2>
+  <div class="kicker">How they work</div>
+  <h2>Sara identifies the job. Taylor estimates it. Emma gets the paperwork ready.</h2>
   <div class="grid3">
-    <div class="card"><h3>1. Sara</h3><p>Identifies the job, deadline, and what needs attention.</p></div>
-    <div class="card"><h3>2. Taylor</h3><p>Estimates readiness from drawings and scope — UNKNOWN until verified.</p></div>
-    <div class="card"><h3>3. Emma</h3><p>Gets the paperwork ready and lists what is still missing.</p></div>
+    <a class="card" href="/sara/"><p class="muted" style="font-family:IBM Plex Mono,monospace;font-size:.72rem;letter-spacing:.14em">01</p><h3>Sara</h3><p>Identifies the job, deadline, and what needs attention.</p></a>
+    <a class="card" href="/taylor/"><p class="muted" style="font-family:IBM Plex Mono,monospace;font-size:.72rem;letter-spacing:.14em">02</p><h3>Taylor</h3><p>Estimates readiness from drawings and scope — UNKNOWN until verified.</p></a>
+    <a class="card" href="/emma/"><p class="muted" style="font-family:IBM Plex Mono,monospace;font-size:.72rem;letter-spacing:.14em">03</p><h3>Emma</h3><p>Gets the paperwork ready and lists what is still missing.</p></a>
   </div>
 </section>
 <section id="pricing">
@@ -107,7 +116,6 @@
 <footer>
   <div>© 2026 BNZ Builders INC · 424 Rockaway Turnpike, Cedarhurst, NY 11516<br>
   <a href="tel:+13322581401">1-332-258-1401</a> · <a href="mailto:bnzbuilders1@gmail.com">bnzbuilders1@gmail.com</a></div>
-  <div><a href="/privacy/">Privacy</a> · <a href="/credentials/">Credentials</a> · <a href="/sara/">Sara</a> · <a href="/taylor/">Taylor</a> · <a href="/emma/">Emma</a><br>Bonding available based on project requirements. No bonding dollar amounts are published on this site.</div>
+  <div><a href="/sara/">Sara</a> · <a href="/taylor/">Taylor</a> · <a href="/emma/">Emma</a> · <a href="/credentials/">Credentials</a> · <a href="/privacy/">Privacy</a><br>Bonding available based on project requirements. No bonding dollar amounts are published on this site.</div>
 </footer>
-</body>
-</html>
+</body></html>
