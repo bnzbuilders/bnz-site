@@ -18,38 +18,38 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/css/site.css" />
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"GeneralContractor","name":"BNZ Builders INC","alternateName":"BuildWithBNZ","url":"https://buildwithbnz.com/","telephone":"1-332-258-1401","email":"bnzbuilders1@gmail.com","address":{"@type":"PostalAddress","streetAddress":"424 Rockaway Turnpike","addressLocality":"Cedarhurst","addressRegion":"NY","postalCode":"11516","addressCountry":"US"},"areaServed":["Long Island","Nassau County","Suffolk County","Queens","New York City"],"priceRange":"$$"}</script>
-  
 </head>
 <body>
 <header class="nav">
   <a class="brand" href="/"><span class="mark">B</span> BNZ BUILDERS</a>
   <button class="menu-btn" type="button" onclick="document.querySelector('nav.links').classList.toggle('open')">Menu</button>
-  <nav class="links"><a href="/">Home</a><a href="/about/">About</a><a href="/services/">Services</a><a href="/work/">Work</a><a href="/public-works/">Public Works</a><a href="/contact/" aria-current="page">Contact</a><a href="/subcontract/">Subcontract</a><a href="/careers/">Careers</a><a href="/login/">Login</a></nav>
+  <nav class="links"><a href="/">Home</a><a href="/about/">About</a><a href="/services/">Services</a><a href="/work/">Work</a><a href="/public-works/">Public Works</a><a href="/credentials/">Credentials</a><a href="/contact/" aria-current="page">Contact</a><a href="/subcontract/">Subcontract</a><a href="/careers/">Careers</a><a href="/login/">Login</a></nav>
   <a class="btn" href="/contact/">Request a quote</a>
 </header>
-
 <section>
   <div class="kicker">Contact</div>
   <h1>Let’s scope the work.</h1>
   <p class="lead">Plans, a scope, or a paragraph. Straight answer within one business day.</p>
   <p class="muted">424 Rockaway Turnpike, Cedarhurst, NY 11516</p>
-  
-<form action="mailto:bnzbuilders1@gmail.com" method="post" enctype="text/plain">
-  <input name="name" placeholder="Name / company" required />
-  <input name="phone" placeholder="Phone" />
-  <input name="email" type="email" placeholder="Email" required />
-  <textarea name="scope" rows="5" placeholder="Scope, address, bid date" required></textarea>
-  <button class="btn" type="submit">Send to the office</button>
-</form>
-<p class="muted">Or call <a href="tel:+13322581401">1-332-258-1401</a> · PM desk <a href="mailto:saracooper@bnzbuildersinc.com">saracooper@bnzbuildersinc.com</a></p>
-
+  <p class="muted" id="sent-note" hidden>Received. It landed in the office inbox — not a dead mailto. We answer within one business day.</p>
+  <form action="https://formsubmit.co/bnzbuilders1@gmail.com" method="POST">
+    <input type="hidden" name="_subject" value="BNZ website — quote request" />
+    <input type="hidden" name="_template" value="table" />
+    <input type="hidden" name="_next" value="https://buildwithbnz.com/contact/?sent=1" />
+    <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
+    <input name="name" placeholder="Name / company" required />
+    <input name="phone" placeholder="Phone" />
+    <input name="email" type="email" placeholder="Email" required />
+    <textarea name="scope" rows="5" placeholder="Scope, address, bid date" required></textarea>
+    <button class="btn" type="submit">Send to the office</button>
+  </form>
+  <p class="muted">Or call <a href="tel:+13322581401">1-332-258-1401</a> · PM desk <a href="mailto:saracooper@bnzbuildersinc.com">saracooper@bnzbuildersinc.com</a></p>
 </section>
-
 <footer>
   <div>© 2026 BNZ Builders INC · 424 Rockaway Turnpike, Cedarhurst, NY 11516<br>
   <a href="tel:+13322581401">1-332-258-1401</a> · <a href="mailto:bnzbuilders1@gmail.com">bnzbuilders1@gmail.com</a></div>
-  <div><a href="/privacy/">Privacy</a> · Bonding available based on project requirements.<br>No bonding dollar amounts are published on this site.</div>
+  <div><a href="/privacy/">Privacy</a> · <a href="/credentials/">Credentials</a> · Bonding available based on project requirements.<br>No bonding dollar amounts are published on this site.</div>
 </footer>
+<script>if(location.search.indexOf('sent=1')!==-1){var n=document.getElementById('sent-note'); if(n) n.hidden=false;}</script>
 </body>
 </html>

@@ -18,22 +18,24 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/css/site.css" />
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"GeneralContractor","name":"BNZ Builders INC","alternateName":"BuildWithBNZ","url":"https://buildwithbnz.com/","telephone":"1-332-258-1401","email":"bnzbuilders1@gmail.com","address":{"@type":"PostalAddress","streetAddress":"424 Rockaway Turnpike","addressLocality":"Cedarhurst","addressRegion":"NY","postalCode":"11516","addressCountry":"US"},"areaServed":["Long Island","Nassau County","Suffolk County","Queens","New York City"],"priceRange":"$$"}</script>
-  
 </head>
 <body>
 <header class="nav">
   <a class="brand" href="/"><span class="mark">B</span> BNZ BUILDERS</a>
   <button class="menu-btn" type="button" onclick="document.querySelector('nav.links').classList.toggle('open')">Menu</button>
-  <nav class="links"><a href="/">Home</a><a href="/about/">About</a><a href="/services/">Services</a><a href="/work/">Work</a><a href="/public-works/">Public Works</a><a href="/contact/">Contact</a><a href="/subcontract/" aria-current="page">Subcontract</a><a href="/careers/">Careers</a><a href="/login/">Login</a></nav>
+  <nav class="links"><a href="/">Home</a><a href="/about/">About</a><a href="/services/">Services</a><a href="/work/">Work</a><a href="/public-works/">Public Works</a><a href="/credentials/">Credentials</a><a href="/contact/">Contact</a><a href="/subcontract/" aria-current="page">Subcontract</a><a href="/careers/">Careers</a><a href="/login/">Login</a></nav>
   <a class="btn" href="/contact/">Request a quote</a>
 </header>
-
 <section>
   <div class="kicker">Trade partners</div>
   <h1>Subcontract with BNZ.</h1>
   <p class="lead">We keep a short vendor list. Painting, drywall, tile, plumbing, electric, protection. Send coverage area, W-9 status, and COI.</p>
-  <form action="mailto:bnzbuilders1@gmail.com" method="post" enctype="text/plain">
+  <p class="muted" id="sent-note" hidden>Received. Vendor intro is in the office inbox.</p>
+  <form action="https://formsubmit.co/bnzbuilders1@gmail.com" method="POST">
+    <input type="hidden" name="_subject" value="BNZ website — subcontractor intro" />
+    <input type="hidden" name="_template" value="table" />
+    <input type="hidden" name="_next" value="https://buildwithbnz.com/subcontract/?sent=1" />
+    <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
     <input name="company" placeholder="Company" required />
     <input name="trade" placeholder="Trade" required />
     <input name="coverage" placeholder="Coverage area" />
@@ -42,11 +44,11 @@
     <button class="btn" type="submit">Send vendor intro</button>
   </form>
 </section>
-
 <footer>
   <div>© 2026 BNZ Builders INC · 424 Rockaway Turnpike, Cedarhurst, NY 11516<br>
   <a href="tel:+13322581401">1-332-258-1401</a> · <a href="mailto:bnzbuilders1@gmail.com">bnzbuilders1@gmail.com</a></div>
-  <div><a href="/privacy/">Privacy</a> · Bonding available based on project requirements.<br>No bonding dollar amounts are published on this site.</div>
+  <div><a href="/privacy/">Privacy</a> · <a href="/credentials/">Credentials</a> · Bonding available based on project requirements.<br>No bonding dollar amounts are published on this site.</div>
 </footer>
+<script>if(location.search.indexOf('sent=1')!==-1){var n=document.getElementById('sent-note'); if(n) n.hidden=false;}</script>
 </body>
 </html>
