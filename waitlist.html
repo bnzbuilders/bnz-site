@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Start BuildWithBNZ — $30 Sara or $50 Full crew waitlist</title>
+<meta name="description" content="Join the BuildWithBNZ waitlist. Construction chatbot Sara $30/mo or Full crew $50/mo with construction QuickBooks assistant. Stripe is not live. Not a charge.">
+<meta name="theme-color" content="#c9a227">
+<link rel="canonical" href="https://buildwithbnz.com/waitlist.html">
+<style>
+  :root { --bg:#0f1115; --card:#171a21; --text:#f3f0e7; --muted:#9a9588; --gold:#c9a227; --line:#2a2f3a; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.45; }
+  a { color: var(--gold); }
+  .wrap { max-width: 520px; margin: 0 auto; padding: 24px 20px 48px; }
+  header { border-bottom: 1px solid var(--line); }
+  header .wrap { display: flex; align-items: center; justify-content: space-between; padding-bottom: 16px; }
+  .brand { color: var(--text); text-decoration: none; font-weight: 700; letter-spacing: .02em; }
+  .brand small { display: block; font-weight: 500; color: var(--muted); font-size: .75rem; }
+  .eyebrow { color: var(--gold); text-transform: uppercase; letter-spacing: .08em; font-size: .75rem; font-weight: 600; margin: 28px 0 8px; }
+  h1 { font-size: 2.4rem; margin: 0 0 8px; letter-spacing: -.02em; }
+  .lede { color: var(--muted); margin: 0 0 20px; }
+  .plans { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 0 0 22px; }
+  .plans a { display: block; text-decoration: none; color: var(--text); background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 14px; font-weight: 700; }
+  .plans a small { display: block; font-weight: 500; color: var(--muted); margin-top: 4px; }
+  .plans a.on, .plans a:hover { border-color: var(--gold); }
+  form { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 16px; }
+  .row { margin: 0 0 12px; }
+  label { display: block; font-size: .85rem; color: var(--muted); margin-bottom: 4px; }
+  input { width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid var(--line); background: #0c0e13; color: var(--text); font: inherit; }
+  .btn { display: inline-block; background: var(--gold); color: #111; border: 0; border-radius: 999px; padding: 12px 18px; font-weight: 700; text-decoration: none; cursor: pointer; font: inherit; }
+  .btn-wide { width: 100%; }
+  .btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--line); margin-top: 12px; text-align: center; }
+  .dim { color: var(--muted); font-size: .9rem; margin: 16px 0; }
+  .success { display: none; color: #9ddea8; margin: 12px 0 0; }
+  .success.show { display: block; }
+  footer { border-top: 1px solid var(--line); margin-top: 32px; }
+  .nap { font-size: .85rem; color: var(--muted); }
+  .nap strong { color: var(--text); }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="brand" href="/">BuildWithBNZ<small>Contractor OS</small></a>
+    <a class="btn" href="#wl-form">Start</a>
+  </div>
+</header>
+<main class="wrap">
+  <p class="eyebrow">Pay look · Stripe not live</p>
+  <h1>Start.</h1>
+  <p id="plan-label">Sara · $30 or Full crew · $50</p>
+  <p class="lede">Looks like pay. Joining the waitlist is not a charge. Stripe is not live.</p>
+  <div class="plans" aria-label="Pick a plan">
+    <a href="?plan=30" id="pick-30" data-plan="30">$30<small>Sara chatbot</small></a>
+    <a href="?plan=50" id="pick-50" data-plan="50">$50<small>Full crew + QuickBooks</small></a>
+  </div>
+  <form id="wl-form">
+    <input type="hidden" id="wl-plan" name="plan" value="">
+    <div class="row"><label for="wl-name">Name</label><input id="wl-name" name="name" required autocomplete="name"></div>
+    <div class="row"><label for="wl-company">Company</label><input id="wl-company" name="company" required autocomplete="organization"></div>
+    <div class="row"><label for="wl-email">Email</label><input id="wl-email" name="email" type="email" required autocomplete="email"></div>
+    <div class="row"><label for="wl-city">City</label><input id="wl-city" name="city" required autocomplete="address-level2"></div>
+    <button class="btn btn-wide" type="submit" id="pay-label">Join waitlist</button>
+    <p class="success" role="status" id="wl-success">Waitlist saved. Amount $0. Stripe not live — not a charge.</p>
+  </form>
+  <p class="dim">Cancel anytime. No enterprise. No extra SKUs. QuickBooks is Full crew only.</p>
+  <a class="btn btn-ghost btn-wide" href="/">Back to home</a>
+</main>
+<footer>
+  <div class="wrap">
+    <div class="nap"><strong>BNZ BUILDERS INC.</strong> · 424 Rockaway Turnpike, Cedarhurst, NY 11516 · <a href="tel:+13322581401">1-332-258-1401</a> · DCWP 2129829-DCWP</div>
+  </div>
+</footer>
+<script>
+(function () {
+  function plan() {
+    var q = new URLSearchParams(location.search).get("plan");
+    if (q === "30" || q === "50") return q;
+    return localStorage.getItem("bnz_plan") || "";
+  }
+  var p = plan();
+  var label = document.getElementById("plan-label");
+  var pay = document.getElementById("pay-label");
+  var hidden = document.getElementById("wl-plan");
+  if (p === "50") { label.textContent = "Full crew · $50/mo"; pay.textContent = "Start $50"; }
+  else if (p === "30") { label.textContent = "Sara · $30/mo"; pay.textContent = "Start $30"; }
+  if (hidden) hidden.value = p;
+  document.getElementById("pick-30").classList.toggle("on", p === "30");
+  document.getElementById("pick-50").classList.toggle("on", p === "50");
+  document.querySelectorAll("[data-plan]").forEach(function (a) {
+    a.addEventListener("click", function () {
+      localStorage.setItem("bnz_plan", a.getAttribute("data-plan"));
+    });
+  });
+  document.getElementById("wl-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var f = e.target;
+    var pl = (f.plan.value === "50" || f.plan.value === "30") ? f.plan.value : (plan() || "30");
+    localStorage.setItem("bnz_plan", pl);
+    var row = {
+      name: f.name.value, company: f.company.value, email: f.email.value, city: f.city.value,
+      at: new Date().toISOString(),
+      plan: pl === "50" ? "$50/month Full crew" : "$30/month Sara",
+      amount: 0, status: "PENDING"
+    };
+    var list = JSON.parse(localStorage.getItem("bnz_waitlist") || "[]");
+    list.unshift(row);
+    localStorage.setItem("bnz_waitlist", JSON.stringify(list));
+    document.getElementById("wl-success").classList.add("show");
+    var body = [
+      "BuildWithBNZ waitlist — " + row.plan + " when billing opens",
+      "Joining is not a charge. Stripe is not live. Amount: $0.",
+      "", "Name: " + row.name, "Company: " + row.company, "Email: " + row.email, "City: " + row.city
+    ].join("\n");
+    try {
+      location.href = "mailto:bnzbuilders1@gmail.com?subject=" + encodeURIComponent("BuildWithBNZ waitlist — " + (row.company || row.name)) + "&body=" + encodeURIComponent(body);
+    } catch (err) {}
+  });
+})();
+</script>
+</body>
+</html>
