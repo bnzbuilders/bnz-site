@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Start BuildWithBNZ — $30 Sara or $50 Full crew waitlist</title>
-<meta name="description" content="Join the BuildWithBNZ waitlist. Construction chatbot Sara $30/mo or Full crew $50/mo with construction QuickBooks assistant. Stripe is not live. Not a charge.">
+<title>Start BuildWithBNZ — $30 Sara or $50 Full crew</title>
+<meta name="description" content="Subscribe to BuildWithBNZ. Construction chatbot Sara $30/mo or Full crew $50/mo with construction QuickBooks assistant. Paid with Stripe.">
 <meta name="theme-color" content="#c9a227">
 <link rel="canonical" href="https://buildwithbnz.com/waitlist.html">
 <style>
@@ -32,8 +32,10 @@
   .btn-wide { width: 100%; }
   .btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--line); margin-top: 12px; text-align: center; }
   .dim { color: var(--muted); font-size: .9rem; margin: 16px 0; }
-  .success { display: none; color: #9ddea8; margin: 12px 0 0; }
-  .success.show { display: block; }
+  .err { display: none; color: #f3b4b4; margin: 12px 0 0; }
+  .err.show { display: block; }
+  .setup { display: none; background: #2a2210; border: 1px solid var(--gold); border-radius: 12px; padding: 12px 14px; margin: 0 0 18px; font-size: .9rem; }
+  .setup.show { display: block; }
   footer { border-top: 1px solid var(--line); margin-top: 32px; }
   .nap { font-size: .85rem; color: var(--muted); }
   .nap strong { color: var(--text); }
@@ -43,14 +45,17 @@
 <header>
   <div class="wrap">
     <a class="brand" href="/">BuildWithBNZ<small>Contractor OS</small></a>
-    <a class="btn" href="#wl-form">Start</a>
+    <a class="btn" href="#wl-form">Pay</a>
   </div>
 </header>
 <main class="wrap">
-  <p class="eyebrow">Pay look · Stripe not live</p>
+  <p class="eyebrow" id="eyebrow">Stripe checkout</p>
   <h1>Start.</h1>
   <p id="plan-label">Sara · $30 or Full crew · $50</p>
-  <p class="lede">Looks like pay. Joining the waitlist is not a charge. Stripe is not live.</p>
+  <p class="lede">Card billed monthly through Stripe. Cancel anytime from the receipt Stripe emails you.</p>
+  <div class="setup" id="setup-banner">
+    Stripe Payment Links are not in this file yet. Open Stripe Dashboard → Payment Links, create two recurring links ($30 Sara, $50 Full crew), then paste the URLs into waitlist.html (STRIPE_LINKS). Until then this form cannot charge a card.
+  </div>
   <div class="plans" aria-label="Pick a plan">
     <a href="?plan=30" id="pick-30" data-plan="30">$30<small>Sara chatbot</small></a>
     <a href="?plan=50" id="pick-50" data-plan="50">$50<small>Full crew + QuickBooks</small></a>
@@ -61,10 +66,10 @@
     <div class="row"><label for="wl-company">Company</label><input id="wl-company" name="company" required autocomplete="organization"></div>
     <div class="row"><label for="wl-email">Email</label><input id="wl-email" name="email" type="email" required autocomplete="email"></div>
     <div class="row"><label for="wl-city">City</label><input id="wl-city" name="city" required autocomplete="address-level2"></div>
-    <button class="btn btn-wide" type="submit" id="pay-label">Join waitlist</button>
-    <p class="success" role="status" id="wl-success">Waitlist saved. Amount $0. Stripe not live — not a charge.</p>
+    <button class="btn btn-wide" type="submit" id="pay-label">Pay with Stripe</button>
+    <p class="err" role="alert" id="wl-err"></p>
   </form>
-  <p class="dim">Cancel anytime. No enterprise. No extra SKUs. QuickBooks is Full crew only.</p>
+  <p class="dim">Powered by Stripe. No charge until you confirm on the Stripe page. QuickBooks is Full crew only.</p>
   <a class="btn btn-ghost btn-wide" href="/">Back to home</a>
 </main>
 <footer>
@@ -74,48 +79,69 @@
 </footer>
 <script>
 (function () {
+  // Paste live Payment Link URLs from https://dashboard.stripe.com/payment-links
+  // After create: after_completion = redirect to https://buildwithbnz.com/paid.html
+  var STRIPE_LINKS = {
+    "30": "",
+    "50": ""
+  };
+
   function plan() {
     var q = new URLSearchParams(location.search).get("plan");
     if (q === "30" || q === "50") return q;
-    return localStorage.getItem("bnz_plan") || "";
+    return localStorage.getItem("bnz_plan") || "30";
   }
+  function linksReady() {
+    return /^https:\/\/buy\.stripe\.com\//.test(STRIPE_LINKS["30"]) &&
+           /^https:\/\/buy\.stripe\.com\//.test(STRIPE_LINKS["50"]);
+  }
+
   var p = plan();
   var label = document.getElementById("plan-label");
   var pay = document.getElementById("pay-label");
   var hidden = document.getElementById("wl-plan");
-  if (p === "50") { label.textContent = "Full crew · $50/mo"; pay.textContent = "Start $50"; }
-  else if (p === "30") { label.textContent = "Sara · $30/mo"; pay.textContent = "Start $30"; }
+  if (p === "50") { label.textContent = "Full crew · $50/mo"; pay.textContent = "Pay $50 / mo"; }
+  else { label.textContent = "Sara · $30/mo"; pay.textContent = "Pay $30 / mo"; p = "30"; }
   if (hidden) hidden.value = p;
   document.getElementById("pick-30").classList.toggle("on", p === "30");
   document.getElementById("pick-50").classList.toggle("on", p === "50");
+  if (!linksReady()) document.getElementById("setup-banner").classList.add("show");
+
   document.querySelectorAll("[data-plan]").forEach(function (a) {
     a.addEventListener("click", function () {
       localStorage.setItem("bnz_plan", a.getAttribute("data-plan"));
     });
   });
+
   document.getElementById("wl-form").addEventListener("submit", function (e) {
     e.preventDefault();
     var f = e.target;
-    var pl = (f.plan.value === "50" || f.plan.value === "30") ? f.plan.value : (plan() || "30");
+    var pl = (f.plan.value === "50" || f.plan.value === "30") ? f.plan.value : "30";
     localStorage.setItem("bnz_plan", pl);
     var row = {
-      name: f.name.value, company: f.company.value, email: f.email.value, city: f.city.value,
+      name: f.name.value.trim(),
+      company: f.company.value.trim(),
+      email: f.email.value.trim(),
+      city: f.city.value.trim(),
       at: new Date().toISOString(),
       plan: pl === "50" ? "$50/month Full crew" : "$30/month Sara",
-      amount: 0, status: "PENDING"
+      status: "CHECKOUT"
     };
     var list = JSON.parse(localStorage.getItem("bnz_waitlist") || "[]");
     list.unshift(row);
     localStorage.setItem("bnz_waitlist", JSON.stringify(list));
-    document.getElementById("wl-success").classList.add("show");
-    var body = [
-      "BuildWithBNZ waitlist — " + row.plan + " when billing opens",
-      "Joining is not a charge. Stripe is not live. Amount: $0.",
-      "", "Name: " + row.name, "Company: " + row.company, "Email: " + row.email, "City: " + row.city
-    ].join("\n");
-    try {
-      location.href = "mailto:bnzbuilders1@gmail.com?subject=" + encodeURIComponent("BuildWithBNZ waitlist — " + (row.company || row.name)) + "&body=" + encodeURIComponent(body);
-    } catch (err) {}
+    localStorage.setItem("bnz_checkout", JSON.stringify(row));
+
+    var base = STRIPE_LINKS[pl];
+    if (!/^https:\/\/buy\.stripe\.com\//.test(base)) {
+      document.getElementById("wl-err").textContent = "Stripe links are not live in this file yet. Create the two Payment Links in Stripe and paste them into STRIPE_LINKS.";
+      document.getElementById("wl-err").classList.add("show");
+      return;
+    }
+    var url = new URL(base);
+    url.searchParams.set("prefilled_email", row.email);
+    url.searchParams.set("client_reference_id", row.company.slice(0, 200));
+    location.href = url.toString();
   });
 })();
 </script>
