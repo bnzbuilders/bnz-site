@@ -1,18 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://buildwithbnz.com/</loc></url>
-  <url><loc>https://buildwithbnz.com/crew/</loc></url>
-  <url><loc>https://buildwithbnz.com/sara/</loc></url>
-  <url><loc>https://buildwithbnz.com/taylor/</loc></url>
-  <url><loc>https://buildwithbnz.com/emma/</loc></url>
-  <url><loc>https://buildwithbnz.com/about/</loc></url>
   <url><loc>https://buildwithbnz.com/services/</loc></url>
   <url><loc>https://buildwithbnz.com/work/</loc></url>
   <url><loc>https://buildwithbnz.com/public-works/</loc></url>
   <url><loc>https://buildwithbnz.com/credentials/</loc></url>
+  <url><loc>https://buildwithbnz.com/about/</loc></url>
   <url><loc>https://buildwithbnz.com/contact/</loc></url>
-  <url><loc>https://buildwithbnz.com/subcontract/</loc></url>
-  <url><loc>https://buildwithbnz.com/careers/</loc></url>
-  <url><loc>https://buildwithbnz.com/login/</loc></url>
-  <url><loc>https://buildwithbnz.com/privacy/</loc></url>
+  <url><loc>https://buildwithbnz.com/capability-statement/</loc></url>
+  <url><loc>https://buildwithbnz.com/crew/</loc></url>
 </urlset>
