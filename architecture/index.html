@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Architecture · BuildWithBNZ</title>
+<meta name="description" content="One product. Web app and iPhone app. Same backend. Accounts, project data, and Sara / Taylor / Emma."/>
+<link rel="canonical" href="https://buildwithbnz.com/architecture/"/>
+<link rel="stylesheet" href="/css/site.css"/>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"/>
+<style>
+.stack{display:grid;gap:14px;max-width:820px}
+.node{background:#fff;border:1px solid var(--line);border-radius:20px;padding:18px 22px;text-align:center;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.node.top{background:#161513;color:#f4f1ea}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.row3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.arrow{text-align:center;color:var(--muted);font-size:.78rem;letter-spacing:.2em;text-transform:uppercase}
+.note{color:var(--muted);max-width:640px}
+@media(max-width:700px){.row,.row3{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip</a>
+<header class="nav">
+<a class="brand" href="/"><span class="mark">B</span> BUILDWITHBNZ</a>
+<button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+<nav class="links" id="site-nav">
+<a href="/">Product</a>
+<a href="/architecture/" aria-current="page">Architecture</a>
+<a href="/crew/">Crew</a>
+<a href="/services/">Field services</a>
+<a href="/work/">Work</a>
+<a href="/contact/">Contact</a>
+<a class="btn" href="/crew/">See plans</a>
+</nav>
+</header>
+<main id="main">
+<section>
+<div class="kicker">Same product</div>
+<h1>Web and iPhone.<br>One backend.</h1>
+<p class="lead">buildwithbnz.com and the iPhone app are two doors. They talk to the same company workspace. Jobs stay isolated. Bonding stays off the public page.</p>
+<div class="stack" style="margin-top:36px">
+<div class="node top">BUILDWITHBNZ</div>
+<div class="arrow">two surfaces</div>
+<div class="row">
+<div class="node">buildwithbnz.com<br><span class="muted" style="display:block;font-weight:500;letter-spacing:0;text-transform:none;margin-top:6px">Web app</span></div>
+<div class="node">Apple App Store<br><span class="muted" style="display:block;font-weight:500;letter-spacing:0;text-transform:none;margin-top:6px">iPhone app · enrollment in progress</span></div>
+</div>
+<div class="arrow">same backend</div>
+<div class="row3">
+<div class="node">Accounts<br><span class="muted" style="display:block;font-weight:500;letter-spacing:0;text-transform:none;margin-top:6px">Login / auth</span></div>
+<div class="node">BNZ data<br><span class="muted" style="display:block;font-weight:500;letter-spacing:0;text-transform:none;margin-top:6px">Projects · isolated</span></div>
+<div class="node">AI agents<br><span class="muted" style="display:block;font-weight:500;letter-spacing:0;text-transform:none;margin-top:6px">Sara · Taylor · Emma</span></div>
+</div>
+<div class="arrow">connected tools</div>
+<div class="node">Gmail · Notion · Drive · Calendar<br><span class="muted" style="display:block;font-weight:500;letter-spacing:0;text-transform:none;margin-top:6px">Plus other company integrations as they are approved</span></div>
+</div>
+<p class="note" style="margin-top:28px">Sara $30 / month. Full Crew $50 / month. Cancel anytime. No other public price points. Stripe checkout stays behind APPROVE.</p>
+<div class="cta">
+<a class="btn" href="/crew/">See locked plans</a>
+<a class="btn btn-ghost" href="/login/">Open login</a>
+</div>
+</section>
+</main>
+<footer>
+<div>BNZ BUILDERS INC · 424 Rockaway Turnpike, Cedarhurst, NY 11516 · <a href="tel:+13322581401">1-332-258-1401</a></div>
+<div><a href="/">Product</a> · <a href="/crew/">Plans</a> · <a href="/privacy/">Privacy</a></div>
+</footer>
+<script src="/js/site.js"></script>
+</body></html>
