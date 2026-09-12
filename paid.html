@@ -2,36 +2,78 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>You're in — BuildWithBNZ</title>
-<meta name="theme-color" content="#c9a227">
-<style>
-  :root { --bg:#0f1115; --text:#f3f0e7; --muted:#9a9588; --gold:#c9a227; --line:#2a2f3a; }
-  body { margin: 0; font-family: system-ui, sans-serif; background: var(--bg); color: var(--text); }
-  .wrap { max-width: 520px; margin: 0 auto; padding: 48px 20px; }
-  h1 { font-size: 2.2rem; letter-spacing: -.02em; }
-  p { color: var(--muted); }
-  a.btn { display: inline-block; background: var(--gold); color: #111; border-radius: 999px; padding: 12px 18px; font-weight: 700; text-decoration: none; margin-top: 16px; }
-</style>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Checkout — BuildWithBNZ</title>
+<meta name="description" content="Thanks for subscribing to BuildWithBNZ.">
+<meta name="theme-color" content="#0a0a0a">
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,400..900&family=Space+Grotesk:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/assets/css/site.css">
+<link rel="stylesheet" href="/assets/css/components.css">
+<link rel="stylesheet" href="/assets/css/motion.css">
+<script>document.documentElement.className+=" js"</script>
 </head>
 <body>
-  <div class="wrap">
-    <p style="color:var(--gold);text-transform:uppercase;letter-spacing:.08em;font-size:.75rem;font-weight:600;">Stripe</p>
-    <h1>Paid. You're on the crew.</h1>
-    <p>Stripe emailed the receipt. Sara / Full crew access gets unlocked from the desk after the payment lands.</p>
-    <p id="echo"></p>
-    <a class="btn" href="/crew/">Open the crew desk</a>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav">
+  <div class="nav-in">
+    <a class="brand" href="/" aria-label="BuildWithBNZ — home">
+      <span class="brand-mark" aria-hidden="true">B</span>
+      <span class="brand-name">BuildWithBNZ</span>
+    </a>
+    <nav class="nav-links" id="nav-links" aria-label="Primary"><a href="/">Home</a><a href="/crew/">AI Crew</a><a href="/#pricing">Pricing</a><a href="/login/">Login</a></nav>
   </div>
-  <script>
-    try {
-      var row = JSON.parse(localStorage.getItem("bnz_checkout") || "null");
-      if (row) {
-        document.getElementById("echo").textContent = row.name + " · " + row.company + " · " + row.plan;
-        row.status = "PAID";
-        row.paidAt = new Date().toISOString();
-        localStorage.setItem("bnz_checkout", JSON.stringify(row));
-      }
-    } catch (e) {}
-  </script>
-</body>
-</html>
+</header>
+<main id="main">
+<section class="wrap" style="min-height:64vh;display:grid;place-items:center">
+  <div class="auth-wrap center" style="width:100%">
+    <!-- SUCCESS -->
+    <div id="success">
+      <p class="mono mono-em">Stripe</p>
+      <h1 class="display" style="font-size:clamp(2rem,4.5vw,3.4rem)">You're on the crew.</h1>
+      <p class="lede" style="margin:18px auto 8px">Thanks for subscribing. Stripe will email your receipt. Your workspace access is activated once the payment is confirmed — this usually only takes a moment.</p>
+      <div class="notice" style="text-align:left;margin:22px auto 26px;max-width:420px">Access is granted from your confirmed subscription. If you're not in yet, refresh in a minute or contact us and we'll sort it out.</div>
+      <div class="hero-actions" style="justify-content:center">
+        <a class="btn" href="/login/">Go to Sign In</a>
+        <a class="btn btn-ghost" href="/contact/">Contact Support</a>
+      </div>
+    </div>
+    <!-- CANCELED -->
+    <div id="canceled" hidden>
+      <p class="mono">Checkout</p>
+      <h1 class="display" style="font-size:clamp(2rem,4.5vw,3.4rem)">Checkout canceled.</h1>
+      <p class="lede" style="margin:18px auto 26px">No charge was made. You can pick a plan again whenever you're ready.</p>
+      <div class="hero-actions" style="justify-content:center">
+        <a class="btn" href="/#pricing">Back to Pricing</a>
+        <a class="btn btn-ghost" href="/contact/">Ask a Question</a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-bar">
+      <span>© 2026 BNZ Builders Inc. · 424 Rockaway Turnpike, Cedarhurst, NY 11516 · <a href="tel:+13322581401">1-332-258-1401</a></span>
+      <span><a href="/crew/">AI Crew</a> · <a href="/contact/">Contact</a> · <a href="/privacy/">Privacy</a> · <a href="/terms/">Terms</a></span>
+    </div>
+  </div>
+</footer>
+<script src="/assets/js/motion.js" defer></script>
+<script>
+(() => {
+  // Show the canceled state if Stripe returned via the cancel URL.
+  // NOTE: access is never granted here — entitlement comes from the server's
+  // verified subscription state, not from reaching this page.
+  const q = new URLSearchParams(location.search);
+  const canceled = q.get("checkout") === "canceled" || q.get("canceled") === "1";
+  if (canceled) {
+    document.getElementById("success").hidden = true;
+    document.getElementById("canceled").hidden = false;
+  }
+})();
+</script>
+</body></html>

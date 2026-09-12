@@ -1,1 +1,56 @@
-.skip{position:absolute;left:-9999px}.hero-actions{display:flex;gap:12px;flex-wrap:wrap}.plans-lg{max-width:980px}
+.skip{position:absolute;left:-9999px}.skip:focus{left:16px;top:12px;z-index:80;background:var(--ember);color:var(--ember-ink);padding:10px 14px;border-radius:3px}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+.plans-lg{max-width:980px}
+/* hero line reveal — each line on its own row (fixes headline word-spacing) */
+.reveal-lines .ln{display:block}
+/* interior page hero */
+.phero{border-bottom:1px solid var(--line)}
+.phero .wrap{padding-block:clamp(48px,7vw,96px)}
+.phero .lede{margin-top:22px}
+.phero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
+.role-chip{display:inline-flex;align-items:center;gap:12px;margin-bottom:22px}
+.role-chip .dash-dot{width:34px;height:34px;font-size:1rem}
+.role-chip b{font-size:.82rem}
+.role-chip em{font-style:normal;color:var(--faint);font-size:.62rem;display:block;letter-spacing:.06em;text-transform:uppercase}
+/* generic card grids */
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.card{background:var(--ground);border:1px solid var(--line);padding:26px;display:flex;flex-direction:column;gap:10px}
+.card h3{margin:0}
+.card p{color:var(--dim);margin:0}
+/* agent overview card */
+.agent-card .agent-head{display:flex;align-items:center;gap:12px}
+.agent-card .agent-head b{display:block;line-height:1.15}
+.agent-card .role{display:block;color:var(--faint);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;margin-top:3px}
+.agent-card .more{margin-top:auto;color:var(--ember);font-family:"Space Grotesk",monospace;font-size:.7rem;letter-spacing:.13em;text-transform:uppercase}
+/* feature list */
+.flist{list-style:none;margin:18px 0 0;padding:0;display:grid;gap:12px;max-width:62ch}
+.flist li{display:flex;gap:12px;color:var(--dim)}
+.flist .tick{color:var(--ember);flex:none}
+/* prose (legal / how it works) */
+.prose{max-width:72ch}
+.prose h2{font-family:Archivo,system-ui,sans-serif;text-transform:uppercase;letter-spacing:-.02em;font-size:clamp(1.2rem,2.2vw,1.55rem);margin:1.8em 0 .5em;color:var(--ink)}
+.prose p,.prose li{color:var(--dim)}
+.prose a{color:var(--ember)}
+.prose ul{padding-left:1.1em;display:grid;gap:8px;margin:.4em 0}
+.prose .updated{color:var(--faint);font-size:.8rem}
+/* forms */
+.form{max-width:560px;margin-top:28px;display:grid;gap:4px;position:relative}
+.form label{font-family:"Space Grotesk",monospace;font-size:.66rem;letter-spacing:.13em;text-transform:uppercase;color:var(--dim);margin-top:16px}
+.form input,.form select,.form textarea{width:100%;background:var(--slab);border:1px solid var(--line-2);border-radius:4px;color:var(--ink);padding:12px 14px;font:inherit;min-height:46px}
+.form textarea{min-height:120px;resize:vertical}
+.form input:focus,.form select:focus,.form textarea:focus{outline:2px solid var(--ember);outline-offset:1px;border-color:transparent}
+.form .btn{margin-top:22px}
+.hp{position:absolute;left:-9999px}
+.form-msg{margin-top:16px;padding:13px 15px;border-radius:4px;font-size:.9rem}
+.form-msg.ok{background:color-mix(in srgb,var(--emma) 18%,var(--slab));color:#c2d6ba;border:1px solid color-mix(in srgb,var(--emma) 40%,transparent)}
+.form-msg.err{background:color-mix(in srgb,#ff6a3d 14%,var(--slab));color:#ff9877;border:1px solid color-mix(in srgb,#ff6a3d 40%,transparent)}
+.field-err{color:#ff9877;font-size:.76rem;margin-top:5px;min-height:1em}
+/* two-column text */
+.cols-2{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+/* auth */
+.auth-wrap{max-width:440px;margin:0 auto}
+.notice{background:var(--ground);border:1px solid var(--line-2);border-left:3px solid var(--ember);padding:16px 18px;color:var(--dim);font-size:.9rem;border-radius:0 4px 4px 0}
+.center{text-align:center}
+.stack-lg{display:grid;gap:18px}
+@media(max-width:900px){.grid-3,.grid-2,.cols-2{grid-template-columns:1fr}}
