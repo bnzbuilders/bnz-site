@@ -1,13 +1,118 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-app="">
 <head>
 <meta charset="utf-8">
-<title>Moved — BuildWithBNZ</title>
-<link rel="canonical" href="https://buildwithbnz.com/ops/">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sign in — BuildWithBNZ</title>
+<meta name="description" content="Sign in to your BuildWithBNZ workspace.">
+<link rel="canonical" href="https://buildwithbnz.com/login/">
+<meta name="theme-color" content="#0a0a0a">
 <meta name="robots" content="noindex,follow">
-<meta http-equiv="refresh" content="0;url=/ops/">
-<script>location.replace("/ops/")</script>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,400..900&family=Space+Grotesk:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/assets/css/site.css">
+<link rel="stylesheet" href="/assets/css/components.css">
+<link rel="stylesheet" href="/assets/css/motion.css">
+<script>document.documentElement.className+=" js"</script>
 </head>
-<body style="background:#0a0a0a;color:#f4f1ec;font:16px/1.6 system-ui;padding:48px">
-<p>This page moved to <a href="/ops/" style="color:#ea580c">https://buildwithbnz.com/ops/</a>.</p>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav">
+  <div class="nav-in">
+    <a class="brand" href="/" aria-label="BuildWithBNZ — home">
+      <span class="brand-mark" aria-hidden="true">B</span>
+      <span class="brand-name">BuildWithBNZ</span>
+    </a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav-links">
+      <span class="menu-bars" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span class="menu-word">Menu</span>
+    </button>
+    <nav class="nav-links" id="nav-links" aria-label="Primary"><a href="/">Home</a><a href="/crew/">AI Crew</a><a href="/#how-it-works">How It Works</a><a href="/#pricing">Pricing</a><a href="/login/" aria-current="page">Login</a></nav>
+    <a class="btn btn-sm nav-cta" href="/#pricing">Get Started</a>
+  </div>
+</header>
+<main id="main">
+<section class="wrap" style="min-height:60vh;display:grid;place-items:center">
+  <div class="auth-wrap" style="width:100%">
+    <p class="mono mono-em center">Workspace access</p>
+    <h1 class="display center" style="font-size:clamp(2rem,4vw,3rem);margin-bottom:8px">Sign in</h1>
+    <p class="body-text center" style="margin-bottom:26px">Access your company's BuildWithBNZ workspace.</p>
+
+    <form class="form" id="login-form" style="margin-top:0" novalidate>
+      <label for="email">Work email</label>
+      <input id="email" name="email" type="email" required autocomplete="email">
+      <div class="field-err" data-for="email"></div>
+
+      <label for="password">Password</label>
+      <input id="password" name="password" type="password" required autocomplete="current-password">
+      <div class="field-err" data-for="password"></div>
+
+      <button class="btn btn-block" type="submit">Sign in</button>
+      <div id="login-msg" class="form-msg err" role="alert" hidden></div>
+    </form>
+
+    <p class="body-text center" style="margin-top:20px;font-size:.9rem">
+      New here? <a href="/#pricing" style="color:var(--ember)">Choose a plan</a> ·
+      Need help? <a href="/contact/" style="color:var(--ember)">Contact us</a>
+    </p>
+  </div>
+</section>
+</main>
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-bar">
+      <span>© 2026 BNZ Builders Inc. · 424 Rockaway Turnpike, Cedarhurst, NY 11516 · <a href="tel:+13322581401">1-332-258-1401</a></span>
+      <span><a href="/crew/">AI Crew</a> · <a href="/contact/">Contact</a> · <a href="/privacy/">Privacy</a> · <a href="/terms/">Terms</a></span>
+    </div>
+  </div>
+</footer>
+<script src="/assets/js/site.js" defer></script>
+<script src="/assets/js/motion.js" defer></script>
+<script>
+(() => {
+  const form = document.getElementById("login-form");
+  const msg = document.getElementById("login-msg");
+  // The authenticated workspace app URL. Set data-app on <html> (or window.BNZ_APP)
+  // to the deployed app origin, e.g. "https://app.buildwithbnz.com". Empty = not yet wired.
+  const APP = (document.documentElement.dataset.app || window.BNZ_APP || "").replace(/\/$/, "");
+  const setErr = (n, t) => { const e = form.querySelector(`.field-err[data-for="${n}"]`); if (e) e.textContent = t || ""; };
+  const emailOk = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    msg.hidden = true;
+    let ok = true;
+    const email = form.email.value.trim(), pass = form.password.value;
+    if (!emailOk(email)) { setErr("email", "Enter a valid work email."); ok = false; } else setErr("email", "");
+    if (!pass) { setErr("password", "Enter your password."); ok = false; } else setErr("password", "");
+    if (!ok) return;
+
+    if (!APP) {
+      msg.textContent = "Workspace sign-in isn't connected at this address yet. Please contact us and we'll get you in.";
+      msg.hidden = false;
+      return;
+    }
+    const btn = form.querySelector("button[type=submit]");
+    btn.disabled = true; btn.setAttribute("aria-busy", "true"); const t = btn.textContent; btn.textContent = "Signing in…";
+    try {
+      const res = await fetch(`${APP}/api/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ email, password: pass }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (res.ok && data.url) { window.location.assign(data.url); return; }
+      throw new Error(data.error || `Sign-in failed (${res.status}).`);
+    } catch (err) {
+      btn.disabled = false; btn.removeAttribute("aria-busy"); btn.textContent = t;
+      msg.textContent = (err.message === "Failed to fetch"
+        ? "Could not reach the workspace. Check your connection and try again."
+        : err.message) + " If this continues, contact us.";
+      msg.hidden = false;
+    }
+  });
+})();
+</script>
 </body></html>

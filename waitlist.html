@@ -2,148 +2,16 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Start BuildWithBNZ — $30 Sara or $50 Full crew</title>
-<meta name="description" content="Subscribe to BuildWithBNZ. Construction chatbot Sara $30/mo or Full crew $50/mo with construction QuickBooks assistant. Paid with Stripe.">
-<meta name="theme-color" content="#c9a227">
-<link rel="canonical" href="https://buildwithbnz.com/waitlist.html">
-<style>
-  :root { --bg:#0f1115; --card:#171a21; --text:#f3f0e7; --muted:#9a9588; --gold:#c9a227; --line:#2a2f3a; }
-  * { box-sizing: border-box; }
-  body { margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.45; }
-  a { color: var(--gold); }
-  .wrap { max-width: 520px; margin: 0 auto; padding: 24px 20px 48px; }
-  header { border-bottom: 1px solid var(--line); }
-  header .wrap { display: flex; align-items: center; justify-content: space-between; padding-bottom: 16px; }
-  .brand { color: var(--text); text-decoration: none; font-weight: 700; letter-spacing: .02em; }
-  .brand small { display: block; font-weight: 500; color: var(--muted); font-size: .75rem; }
-  .eyebrow { color: var(--gold); text-transform: uppercase; letter-spacing: .08em; font-size: .75rem; font-weight: 600; margin: 28px 0 8px; }
-  h1 { font-size: 2.4rem; margin: 0 0 8px; letter-spacing: -.02em; }
-  .lede { color: var(--muted); margin: 0 0 20px; }
-  .plans { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 0 0 22px; }
-  .plans a { display: block; text-decoration: none; color: var(--text); background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 14px; font-weight: 700; }
-  .plans a small { display: block; font-weight: 500; color: var(--muted); margin-top: 4px; }
-  .plans a.on, .plans a:hover { border-color: var(--gold); }
-  form { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 16px; }
-  .row { margin: 0 0 12px; }
-  label { display: block; font-size: .85rem; color: var(--muted); margin-bottom: 4px; }
-  input { width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid var(--line); background: #0c0e13; color: var(--text); font: inherit; }
-  .btn { display: inline-block; background: var(--gold); color: #111; border: 0; border-radius: 999px; padding: 12px 18px; font-weight: 700; text-decoration: none; cursor: pointer; font: inherit; }
-  .btn-wide { width: 100%; }
-  .btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--line); margin-top: 12px; text-align: center; }
-  .dim { color: var(--muted); font-size: .9rem; margin: 16px 0; }
-  .err { display: none; color: #f3b4b4; margin: 12px 0 0; }
-  .err.show { display: block; }
-  .setup { display: none; background: #2a2210; border: 1px solid var(--gold); border-radius: 12px; padding: 12px 14px; margin: 0 0 18px; font-size: .9rem; }
-  .setup.show { display: block; }
-  footer { border-top: 1px solid var(--line); margin-top: 32px; }
-  .nap { font-size: .85rem; color: var(--muted); }
-  .nap strong { color: var(--text); }
-</style>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pricing — BuildWithBNZ</title>
+<meta name="robots" content="noindex,follow">
+<link rel="canonical" href="https://buildwithbnz.com/#pricing">
+<meta http-equiv="refresh" content="0;url=/#pricing">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script>location.replace("/#pricing")</script>
+<style>body{background:#0a0a0a;color:#f4f1ec;font:16px/1.6 system-ui,sans-serif;margin:0;padding:48px;text-align:center}a{color:#ea580c}</style>
 </head>
 <body>
-<header>
-  <div class="wrap">
-    <a class="brand" href="/">BuildWithBNZ<small>Contractor OS</small></a>
-    <a class="btn" href="#wl-form">Pay</a>
-  </div>
-</header>
-<main class="wrap">
-  <p class="eyebrow" id="eyebrow">Stripe checkout</p>
-  <h1>Start.</h1>
-  <p id="plan-label">Sara · $30 or Full crew · $50</p>
-  <p class="lede">Card billed monthly through Stripe. Cancel anytime from the receipt Stripe emails you.</p>
-  <div class="setup" id="setup-banner">
-    Stripe Payment Links are not in this file yet. Open Stripe Dashboard → Payment Links, create two recurring links ($30 Sara, $50 Full crew), then paste the URLs into waitlist.html (STRIPE_LINKS). Until then this form cannot charge a card.
-  </div>
-  <div class="plans" aria-label="Pick a plan">
-    <a href="?plan=30" id="pick-30" data-plan="30">$30<small>Sara chatbot</small></a>
-    <a href="?plan=50" id="pick-50" data-plan="50">$50<small>Full crew + QuickBooks</small></a>
-  </div>
-  <form id="wl-form">
-    <input type="hidden" id="wl-plan" name="plan" value="">
-    <div class="row"><label for="wl-name">Name</label><input id="wl-name" name="name" required autocomplete="name"></div>
-    <div class="row"><label for="wl-company">Company</label><input id="wl-company" name="company" required autocomplete="organization"></div>
-    <div class="row"><label for="wl-email">Email</label><input id="wl-email" name="email" type="email" required autocomplete="email"></div>
-    <div class="row"><label for="wl-city">City</label><input id="wl-city" name="city" required autocomplete="address-level2"></div>
-    <button class="btn btn-wide" type="submit" id="pay-label">Pay with Stripe</button>
-    <p class="err" role="alert" id="wl-err"></p>
-  </form>
-  <p class="dim">Powered by Stripe. No charge until you confirm on the Stripe page. QuickBooks is Full crew only.</p>
-  <a class="btn btn-ghost btn-wide" href="/">Back to home</a>
-</main>
-<footer>
-  <div class="wrap">
-    <div class="nap"><strong>BNZ BUILDERS INC.</strong> · 424 Rockaway Turnpike, Cedarhurst, NY 11516 · <a href="tel:+13322581401">1-332-258-1401</a> · DCWP 2129829-DCWP</div>
-  </div>
-</footer>
-<script>
-(function () {
-  // Paste live Payment Link URLs from https://dashboard.stripe.com/payment-links
-  // After create: after_completion = redirect to https://buildwithbnz.com/paid.html
-  var STRIPE_LINKS = {
-    "30": "",
-    "50": ""
-  };
-
-  function plan() {
-    var q = new URLSearchParams(location.search).get("plan");
-    if (q === "30" || q === "50") return q;
-    return localStorage.getItem("bnz_plan") || "30";
-  }
-  function linksReady() {
-    return /^https:\/\/buy\.stripe\.com\//.test(STRIPE_LINKS["30"]) &&
-           /^https:\/\/buy\.stripe\.com\//.test(STRIPE_LINKS["50"]);
-  }
-
-  var p = plan();
-  var label = document.getElementById("plan-label");
-  var pay = document.getElementById("pay-label");
-  var hidden = document.getElementById("wl-plan");
-  if (p === "50") { label.textContent = "Full crew · $50/mo"; pay.textContent = "Pay $50 / mo"; }
-  else { label.textContent = "Sara · $30/mo"; pay.textContent = "Pay $30 / mo"; p = "30"; }
-  if (hidden) hidden.value = p;
-  document.getElementById("pick-30").classList.toggle("on", p === "30");
-  document.getElementById("pick-50").classList.toggle("on", p === "50");
-  if (!linksReady()) document.getElementById("setup-banner").classList.add("show");
-
-  document.querySelectorAll("[data-plan]").forEach(function (a) {
-    a.addEventListener("click", function () {
-      localStorage.setItem("bnz_plan", a.getAttribute("data-plan"));
-    });
-  });
-
-  document.getElementById("wl-form").addEventListener("submit", function (e) {
-    e.preventDefault();
-    var f = e.target;
-    var pl = (f.plan.value === "50" || f.plan.value === "30") ? f.plan.value : "30";
-    localStorage.setItem("bnz_plan", pl);
-    var row = {
-      name: f.name.value.trim(),
-      company: f.company.value.trim(),
-      email: f.email.value.trim(),
-      city: f.city.value.trim(),
-      at: new Date().toISOString(),
-      plan: pl === "50" ? "$50/month Full crew" : "$30/month Sara",
-      status: "CHECKOUT"
-    };
-    var list = JSON.parse(localStorage.getItem("bnz_waitlist") || "[]");
-    list.unshift(row);
-    localStorage.setItem("bnz_waitlist", JSON.stringify(list));
-    localStorage.setItem("bnz_checkout", JSON.stringify(row));
-
-    var base = STRIPE_LINKS[pl];
-    if (!/^https:\/\/buy\.stripe\.com\//.test(base)) {
-      document.getElementById("wl-err").textContent = "Stripe links are not live in this file yet. Create the two Payment Links in Stripe and paste them into STRIPE_LINKS.";
-      document.getElementById("wl-err").classList.add("show");
-      return;
-    }
-    var url = new URL(base);
-    url.searchParams.set("prefilled_email", row.email);
-    url.searchParams.set("client_reference_id", row.company.slice(0, 200));
-    location.href = url.toString();
-  });
-})();
-</script>
+<p>Checkout has moved. Redirecting to <a href="/#pricing">plans &amp; pricing</a>…</p>
 </body>
 </html>
