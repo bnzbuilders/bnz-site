@@ -63,7 +63,7 @@ SOLUTIONS = [
 
 def diagram():
     return ('<div class="diagram fx"><div class="owner">You — the owner</div><div class="arrow">↑ approvals only</div>'
-            '<div class="three"><div>%s Estimating</div><div>%s Sara</div><div>%s Subcontractors</div></div></div>') % (av("t", 56), av("s", 96), av("e", 56))
+            '<div class="three"><div>%s Estimating</div><div>%s Sara</div><div>%s Subcontractors</div></div></div>') % (av("t", 72, anim=True), av("s", 112, anim=True), av("e", 72, anim=True))
 
 def page_solutions():
     desc = "Four solutions, one crew: estimating & takeoff, subcontractor bidding & buyout, operations & approvals, public work & prevailing wage. Pick the problem that hurts; the rest of the crew comes with it."
@@ -102,7 +102,7 @@ def page_crew():
     h += section("dark", sec_head("Each one, in depth", "Go deeper on one.") +
                  '<div class="grid g3 stagger">%s</div>' % ''.join(
                      '<a class="card" href="/%s/">%s<h3 style="margin-top:14px">%s</h3><p class="muted" style="margin:8px 0 12px">%s</p><span class="link">Meet %s →</span></a>' % (
-                         cls, av(k, 56), n, r, n) for cls, k, n, r, p, rule in CREW))
+                         cls, av(k, 64), n, r, n) for cls, k, n, r, p, rule in CREW))
     h += book_strip()
     h += footer()
     return h
@@ -157,7 +157,7 @@ def page_agent(slug):
     h += nav()
     h += ('<section class="dark agent-hero"><div class="wrap"><div class="fx"><span class="eyebrow">The crew · %s</span><h1 style="margin:16px 0 20px;font-size:clamp(40px,6vw,80px)">%s</h1>'
           '<p class="lede">%s</p><div class="cta" style="margin-top:26px">%s</div></div><div class="fx">%s</div></div></section>\n') % (
-        a["idx"], a["h1"], a["lede"], btn_book(), av(a["who"], 160, note=True))
+        a["idx"], a["h1"], a["lede"], btn_book(), av(a["who"], 220, anim=True))
     h += section("light", ('<div class="split"><div class="fx"><h2 style="font-size:clamp(28px,3.4vw,40px);margin-bottom:18px">On your project, she…</h2><ul class="checks">%s</ul></div>'
                            '<div class="fx"><div class="pull">"%s"</div><div class="eyebrow mute" style="margin-top:24px">Her states</div><div class="states">%s</div><p class="muted small">%s</p></div></div>') % (
         ''.join('<li>%s</li>' % c for c in a["checks"]), a["rule"], ''.join(chip(k, t) for k, t in a["states"]), a["states_note"]))
@@ -165,7 +165,7 @@ def page_agent(slug):
     h += section("light", sec_head("The rest of the crew", "Three agents. One team.") +
                  '<div class="grid g3 stagger">%s</div>' % ''.join(
                      '<a class="card" href="/%s/">%s<h3 style="margin-top:14px">%s</h3><p class="muted" style="margin:8px 0 12px">%s</p><span class="link">Meet %s →</span></a>' % (
-                         cls, av(k, 56), n, r, n) for cls, k, n, r, p, rule in CREW if cls != slug))
+                         cls, av(k, 64), n, r, n) for cls, k, n, r, p, rule in CREW if cls != slug))
     h += book_strip(dark=True)
     h += footer()
     return h

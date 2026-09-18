@@ -6,7 +6,7 @@
   'use strict';
   var d = document, w = window;
   var RM = w.matchMedia && w.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (RM) d.documentElement.classList.add('no-motion');
+  if (RM) { d.documentElement.classList.add('no-motion'); d.querySelectorAll('use[data-static]').forEach(function (u) { u.setAttribute('href', u.getAttribute('data-static')); }); }
 
   /* ---------- Lead form endpoint — the one constant the plumbing changes ----------
      Today: FormSubmit relay to the inquiries inbox (no key in the browser).
@@ -102,11 +102,11 @@
     function size() {
       var half = track.scrollHeight / 2;
       track.style.setProperty('--half', half + 'px');
-      var rows = c.querySelectorAll('.tiles:not(.dupe)').length;
-      track.style.setProperty('--dur', (rows * 6 * 3) + 's');
-      // window height = the first N visible rows (label + tiles), measured, not guessed
-      var vis = c.classList.contains('two') ? 2 : 3, h = 0, kids = track.children, gap = 14;
-      for (var i = 0; i < Math.min(kids.length, vis * 2); i++) h += kids[i].getBoundingClientRect().height + gap;
+      var rows = c.querySelectorAll('.brick:not(.dupe)').length;
+      track.style.setProperty('--dur', (rows * 6 * 2) + 's');
+      // window height = the first N visible rows, measured, not guessed
+      var vis = c.classList.contains('two') ? 2 : 3, h = 0, kids = track.children, gap = 16;
+      for (var i = 0; i < Math.min(kids.length, vis); i++) h += kids[i].getBoundingClientRect().height + gap;
       c.style.height = Math.round(h) + 'px';
     }
     size(); w.addEventListener('resize', size);
