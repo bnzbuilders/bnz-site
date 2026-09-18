@@ -42,8 +42,8 @@ STEPS = [
 
 def crew_cards(light=False):
     cards = ''.join(
-        '<div class="card crew-card %s"><div class="av-wrap">%s<div class="av-note">Placeholder — crew character</div></div>'
-        '<h3>%s</h3><div class="role">%s</div><p>%s</p><div class="rule">%s</div></div>' % (cls, av(k, 56), n, r, p, rule)
+        '<div class="card crew-card %s"><div class="av-wrap">%s</div>'
+        '<h3>%s</h3><div class="role">%s</div><p>%s</p><div class="rule">%s</div></div>' % (cls, av(k, 96, anim=True), n, r, p, rule)
         for cls, k, n, r, p, rule in CREW)
     return '<div class="crew-grid stagger">%s</div><p class="footnote fx">Behind them, several models check each other\'s work. You only ever deal with three.</p>' % cards
 

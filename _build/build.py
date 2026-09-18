@@ -32,7 +32,7 @@ PAGES = {
     "/faq/index.html": content_pages.page_faq,
     "/book/index.html": content_pages.page_book,
     "/thanks/index.html": content_pages.page_thanks,
-    "/login/index.html": content_pages.page_login,
+    "/login/index.html": lambda: content_pages.page_redirect("/", "Moved — BuildWithBNZ"),
     "/privacy/index.html": content_pages.page_privacy,
     "/terms/index.html": content_pages.page_terms,
     "/contact/index.html": content_pages.page_contact,
@@ -63,7 +63,7 @@ def main():
         sm.append('  <url><loc>%s%s</loc><lastmod>%s</lastmod><priority>%s</priority></url>' % (SITE, u, UPDATED, pri))
     sm.append('</urlset>\n')
     write("/sitemap.xml", '\n'.join(sm))
-    write("/robots.txt", "User-agent: *\nAllow: /\nDisallow: /thanks/\nDisallow: /login/\n\nSitemap: %s/sitemap.xml\n" % SITE)
+    write("/robots.txt", "User-agent: *\nAllow: /\nDisallow: /thanks/\n\nSitemap: %s/sitemap.xml\n" % SITE)
     print("wrote %d pages + sitemap.xml + robots.txt" % len(written))
 
 if __name__ == "__main__":

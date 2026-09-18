@@ -42,12 +42,53 @@ MENU_CONTRACTOR = [
 def chip(kind, text, dot=False):
     return '<span class="chip %s">%s%s</span>' % (kind, '<i class="dot"></i>' if dot else '', text)
 
-def av(who, size=32, note=False):
-    letter = {"s": "S", "t": "T", "e": "E"}[who]
-    h = '<span class="av %s x%d" aria-hidden="true">%s</span>' % (who, size, letter)
-    if note:
-        h = '<div class="av-wrap">%s<div class="av-note">Placeholder — crew character</div></div>' % h
-    return h
+CREW_PATHS = {
+    "s": "M0 0H180L240 60V240H0Z M48 96H192V120H48Z M26 204a10 10 0 1 0 20 0a10 10 0 1 0 -20 0Z M194 204a10 10 0 1 0 20 0a10 10 0 1 0 -20 0Z",
+    "t": "M180 0L240 60V240H0Z M204 64V150H139.5Z M38 204a10 10 0 1 0 20 0a10 10 0 1 0 -20 0Z M194 204a10 10 0 1 0 20 0a10 10 0 1 0 -20 0Z",
+    "e": "M0 0H180L240 60V92H132V102H118V138H132V148H240V240H0Z M26 204a10 10 0 1 0 20 0a10 10 0 1 0 -20 0Z M194 204a10 10 0 1 0 20 0a10 10 0 1 0 -20 0Z",
+}
+CREW_FILL = {"s": ("#EA580C", "#9A3A08"), "t": ("#C9A44F", "#8A6E33"), "e": ("#7F9C76", "#55684E")}
+
+def crew_sprite():
+    """The three crew characters (Sara · Taylor · Emma) from the character sheet, as one
+    hidden SVG sprite per page. #cs/#ct/#ce are static; #as/#at/#ae are the animated versions."""
+    d = []
+    for k, path in CREW_PATHS.items():
+        body, facet = CREW_FILL[k]
+        d.append('<path id="p%s" fill-rule="evenodd" d="%s"/>' % (k, path))
+        d.append('<g id="c%s"><use href="#p%s" fill="%s"/><path fill="%s" d="M180 0L240 60H180Z"/></g>' % (k, k, body, facet))
+        d.append('<clipPath id="cl%s"><use href="#p%s"/></clipPath>' % (k, k))
+        d.append('<linearGradient id="gl%s" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#F5F3EE" stop-opacity="0"/><stop offset=".5" stop-color="#F5F3EE" stop-opacity=".28"/><stop offset="1" stop-color="#F5F3EE" stop-opacity="0"/></linearGradient>' % k)
+    # own motions
+    own = {
+        "s": '<g clip-path="url(#cws)"><rect x="48" y="94" width="144" height="28" fill="#F5F3EE" style="animation:saraBar 4.6s cubic-bezier(.2,.8,.2,1) infinite"/></g>',
+        "t": '',
+        "e": '',
+    }
+    after = {
+        "s": '',
+        "t": '<path d="M204 64V150H139.5Z" fill="none" stroke="#F5F3EE" stroke-width="4" stroke-dasharray="46 212" style="animation:tayTrace 4.6s linear infinite"/>',
+        "e": '<g clip-path="url(#cwe)"><rect x="144" y="107" width="26" height="26" fill="#F5F3EE" style="animation:emmaDock 4.6s cubic-bezier(.2,.8,.2,1) infinite"/></g>',
+    }
+    d.append('<clipPath id="cws"><rect x="48" y="96" width="144" height="24"/></clipPath>')
+    d.append('<clipPath id="cwe"><rect x="118" y="92" width="122" height="56"/></clipPath>')
+    for k in CREW_PATHS:
+        body, facet = CREW_FILL[k]
+        d.append('<g id="a%s" style="animation:plFloat 5.2s ease-in-out infinite">%s<use href="#p%s" fill="%s"/>'
+                 '<path d="M180 0L240 60H180Z" fill="%s" style="animation:plFacet 3.4s ease-in-out infinite"/>%s'
+                 '<g clip-path="url(#cl%s)"><rect x="-40" y="-20" width="70" height="300" fill="url(#gl%s)" style="animation:plGlint 4.6s ease-in-out infinite"/></g></g>' % (
+                     k, own[k], k, body, facet, after[k], k, k))
+    return '<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>%s</defs></svg>\n' % ''.join(d)
+
+CREW_NAMES = {"s": "Sara", "t": "Taylor", "e": "Emma"}
+
+def av(who, size=32, note=False, anim=False):
+    """A crew character. anim=True uses the animated version (float, glint, own motion)."""
+    if anim:
+        return ('<svg class="av av-%s" width="%d" height="%d" viewBox="-20 -20 280 280" style="overflow:visible" role="img" aria-label="%s">'
+                '<use href="#a%s" data-static="#c%s"/></svg>') % (who, size, size, CREW_NAMES[who], who, who)
+    return '<svg class="av av-%s" width="%d" height="%d" viewBox="0 0 240 240" role="img" aria-label="%s"><use href="#c%s"/></svg>' % (
+        who, size, size, CREW_NAMES[who], who)
 
 def btn_book(cls="btn primary", label="Book a project review"):
     return '<a class="%s" href="/book/">%s <span class="g">↗</span></a>' % (cls, label)
@@ -86,7 +127,7 @@ def head(title, desc, path, og_title=None, jsonld=None, noindex=False):
 %(ld)s</head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-''' % dict(title=esc(title), desc=esc(desc), canon=canon, og=esc(og_title), site=SITE, fonts=FONTS, ld=ld, robots=robots)
+%(sprite)s''' % dict(sprite=crew_sprite(), title=esc(title), desc=esc(desc), canon=canon, og=esc(og_title), site=SITE, fonts=FONTS, ld=ld, robots=robots)
 
 def esc(s):
     return s.replace('&', '&amp;').replace('"', '&quot;').replace('&amp;amp;', '&amp;')
@@ -111,7 +152,6 @@ def nav(current=""):
 <nav class="nav-links" aria-label="Primary">
 <div class="has-menu"><button type="button" aria-haspopup="true" aria-expanded="false">Solutions <span class="car">▼</span></button>%(mega)s</div>
 %(links)s
-<a class="nav-login" href="/login/">Login</a>
 </nav>
 <a class="btn primary sm nav-cta" href="/book/">Book a project review <span class="g">↗</span></a>
 <button class="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="drawer"><span></span><span></span><span></span></button>
@@ -119,7 +159,6 @@ def nav(current=""):
 <div class="drawer" id="drawer">
 <details><summary>Solutions</summary><a href="/solutions/">All solutions</a>%(dprob)s%(dcontr)s<a href="/what-we-connect-to/">What we connect to</a></details>
 %(dlinks)s
-<a href="/login/">Login</a>
 %(book)s
 </div>
 </header>
@@ -131,7 +170,7 @@ def footer():
 <footer>
 <div class="wrap">
 <div><a class="brand" href="/"><span class="mark">B</span>BuildWithBNZ</a><p class="addr" style="margin-top:10px">New York · <a href="mailto:%(inbox)s">%(inbox)s</a> · <a href="tel:%(phone)s">%(phone_txt)s</a></p></div>
-<nav aria-label="Footer"><a href="/solutions/">Solutions</a><a href="/what-we-connect-to/">What we connect to</a><a href="/login/">Login</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a></nav>
+<nav aria-label="Footer"><a href="/solutions/">Solutions</a><a href="/what-we-connect-to/">What we connect to</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a></nav>
 </div>
 </footer>
 <script src="/assets/js/bnz.js" defer></script>
@@ -212,24 +251,67 @@ ICONS = {
     "notion": '<svg viewBox="0 0 24 24"><path d="M5 4h11l3 3v13H5zm3 4v8h2v-5l4 5h2V8h-2v5L10 8z"/></svg>',
 }
 
-def tile(icon, name, line, who=None, dim=False, next_=False):
-    ic = ICONS.get(icon, icon)
-    return '<div class="tile%s">%s<div class="ic" aria-hidden="true">%s</div><b>%s</b><span>%s</span>%s</div>' % (
-        ' dim' if dim else '', chip("next", "Next") if next_ else '', ic, name, line, av(who, 20) if who else '')
+INTEGRATIONS_TODAY = [
+    ("drive", "Google Drive", "Taylor reads the drawing set, specs and addenda from your project folder. Read access first.", "t"),
+    ("gmail", "Gmail", "Emma drafts bid invitations and follow-ups; nothing sends until you approve.", "e"),
+    ("cal", "Google Calendar", "Sara holds the bid due date, COI expiries and quote promises against the week.", "s"),
+    ("ws", "Google Workspace", "The estimate, scope document and Monday report land as files you own.", "s"),
+    ("notion", "Notion", "Project notes and the sub network read and updated in place.", "e"),
+]
+INTEGRATIONS_NEXT = [
+    ("procore", "Procore", "Estimate lines will post to the job cost."),
+    ("bt", "Buildertrend", "Schedules and daily logs will sync both ways."),
+    ("qb", "QuickBooks", "Approved sub invoices will flow to the books."),
+    ("sage", "Sage", "Job cost codes will map to estimate divisions."),
+    ("bb", "Bluebeam", "Markups will read into Taylor's takeoff."),
+    ("ps", "PlanSwift / STACK", "Existing takeoff files will import as Taylor's starting point."),
+    ("ds", "DocuSign", "Approved contracts will route for signature."),
+    ("m365", "Microsoft 365", "Outlook and OneDrive will work the way Gmail and Drive do today."),
+    ("dbx", "Dropbox", "Project folders will read in place."),
+    ("xl", "Excel", "Estimates will export to your own sheets."),
+]
+
+# monochrome marks, one per system — generic glyphs, never the brand's own colour logo
+ICONS = {
+    "drive": '<svg viewBox="0 0 24 24"><path d="M8.2 3h7.6l6 10.4-3.8 6.6H6L2.2 13.4zM9 5 4.6 12.6h4.2L13.2 5zm2.6 8.6-2.1 3.6h8.4l2.1-3.6z"/></svg>',
+    "gmail": '<svg viewBox="0 0 24 24"><path d="M3 5h18v2.2l-9 5.6-9-5.6zm0 4.6 9 5.6 9-5.6V19H3z"/></svg>',
+    "cal": '<svg viewBox="0 0 24 24"><path d="M4 5h16v15H4zm2 5v8h12v-8zm1-7h2v3H7zm8 0h2v3h-2z"/></svg>',
+    "ws": '<svg viewBox="0 0 24 24"><path d="M4 4h7v7H4zm9 0h7v7h-7zM4 13h7v7H4zm9 0h7v7h-7z"/></svg>',
+    "notion": '<svg viewBox="0 0 24 24"><path d="M5 4h11l3 3v13H5zm3 4v8h2v-5l4 5h2V8h-2v5L10 8z"/></svg>',
+    "procore": '<svg viewBox="0 0 24 24"><path d="M12 3l9 5v8l-9 5-9-5V8zm0 2.3L5.3 9v6L12 18.7 18.7 15V9zM9 10h6v4H9z"/></svg>',
+    "bt": '<svg viewBox="0 0 24 24"><path d="M3 20V10l9-7 9 7v10h-6v-6H9v6z"/></svg>',
+    "qb": '<svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 2a8 8 0 1 1 0 16 8 8 0 0 1 0-16zm-1 3h2v2h1.5a2.5 2.5 0 0 1 0 5H13v1h3v2h-3v2h-2v-2H9.5a2.5 2.5 0 0 1 0-5H11v-1H8V9h3z"/></svg>',
+    "sage": '<svg viewBox="0 0 24 24"><path d="M4 6h16v3H4zm0 5h16v3H4zm0 5h10v3H4z"/></svg>',
+    "bb": '<svg viewBox="0 0 24 24"><path d="M4 4h12a4 4 0 0 1 2.6 7 4 4 0 0 1-2.6 7H4zm3 3v3h8a1.5 1.5 0 0 0 0-3zm0 6v3h9a1.5 1.5 0 0 0 0-3z"/></svg>',
+    "ps": '<svg viewBox="0 0 24 24"><path d="M3 3h18v18H3zm2 2v14h14V5zm2 2h4v4H7zm6 0h4v4h-4zM7 13h10v4H7z"/></svg>',
+    "ds": '<svg viewBox="0 0 24 24"><path d="M4 17c3-1 4-6 6-6s2 5 5 5 3-4 5-4v2c-1 0-2 4-5 4s-4-5-5-5-3 6-6 6zM4 20h16v1H4z"/></svg>',
+    "m365": '<svg viewBox="0 0 24 24"><path d="M4 4h7.5v7.5H4zm8.5 0H20v7.5h-7.5zM4 12.5h7.5V20H4zm8.5 0H20V20h-7.5z"/></svg>',
+    "dbx": '<svg viewBox="0 0 24 24"><path d="M7 3l5 3.2L7 9.4 2 6.2zm10 0 5 3.2-5 3.2-5-3.2zM2 12.6 7 9.4l5 3.2-5 3.2zm15-3.2 5 3.2-5 3.2-5-3.2zM7 17l5-3.2 5 3.2-5 3.2z"/></svg>',
+    "xl": '<svg viewBox="0 0 24 24"><path d="M3 3h18v18H3zm2 2v14h14V5zm3 3h2.2l1.8 2.8L13.8 8H16l-2.9 4 2.9 4h-2.2l-1.8-2.8L10.2 16H8l2.9-4z"/></svg>',
+}
+
+def tile(icon, name, line, who=None, next_=False):
+    return ('<div class="tile%s"><div class="ic" aria-hidden="true">%s</div><div class="tx"><b>%s%s</b><span>%s</span></div>%s</div>') % (
+        ' dim' if next_ else '', ICONS.get(icon, icon), name, ' ' + chip("next", "Next") if next_ else '', line, av(who, 22) if who else '')
 
 def integrations(rows=3):
-    """The conveyor (M7). rows=2 on the home page, 3 on the full section."""
-    r1 = ''.join(tile(i, n, l, w) for i, n, l, w in INTEGRATIONS_TODAY)
-    r2 = ''.join(tile(i, n, l, dim=True, next_=True) for i, n, l in INTEGRATIONS_NEXT)
-    r3 = ''.join(tile(i, n, l, dim=True) for i, n, l in INTEGRATIONS_REQUEST[:4]) + \
-         '<div class="tile dim"><div class="ic" aria-hidden="true">?</div><b>Don\'t see yours?</b><span>Bring it to the Project Review.</span></div>'
-    labels = ("Connected today", "Next — future tense only", "On request")
-    blocks = [r1, r2, r3]
-    track = ''.join('<div class="row-label">%s</div><div class="tiles">%s</div>' % (labels[i], blocks[i]) for i in range(3))
+    """The waterfall (M7): brick rows of Beam-style tiles drifting down through a masked window.
+    rows = how many rows are visible in the window (2 on the home page, 3 on the full section)."""
+    tiles = [tile(i, n, l, w) for i, n, l, w in INTEGRATIONS_TODAY] + [tile(i, n, l, next_=True) for i, n, l in INTEGRATIONS_NEXT]
+    # brick pattern: 3, 2, 3, 2 … (15 tiles → 3+2+3+2+3+2 = 15)
+    pattern = [3, 2, 3, 2, 3, 2]
+    out, k = [], 0
+    for n in pattern:
+        row = tiles[k:k + n]; k += n
+        if not row: break
+        out.append('<div class="brick n%d">%s</div>' % (len(row), ''.join(row)))
+    track = ''.join(out)
+    legend = ('<div class="legend fx"><span>%s Connected today</span><span>%s Next — future tense only, nothing reads as live</span>'
+              '<span class="muted small">Icons are each system\'s own mark, monochrome. Hover to pause.</span></div>') % (
+        '<i class="sw on"></i>', chip("next", "Next"))
     conv = '<div class="conveyor%s" aria-label="Systems the crew works inside"><div class="track">%s</div></div>' % (' two' if rows == 2 else '', track)
     static = '<div class="conv-static">%s</div>' % track
-    note = '<p class="small muted" style="margin-top:18px">Icons are each system\'s own mark, monochrome. Nothing in the Next or On-request rows is live yet — those lines are written in the future tense on purpose.</p>'
-    return conv + static + note
+    return legend + conv + static + '<p class="small muted" style="margin-top:14px">Don\'t see yours? Bring it to the Project Review.</p>'
 
 def sample_project_mock(strip=True):
     lines = ('[["ADDENDUM 02 RECEIVED · TAYLOR READING",["working","Working"]],'

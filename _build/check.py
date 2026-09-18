@@ -47,7 +47,7 @@ for p in pages():
             ctx = text[max(0, m.start() - 40):m.end() + 40].replace("\n", " ")
             if any(a.lower() in ctx.lower() for a in ALLOW): continue
             fail("%s → language '%s' in: …%s…" % (r, m.group(0), ctx.strip()))
-    if "404" not in r and "architecture" not in r:
+    if "404" not in r and "architecture" not in r and "login" not in r:
         for tag in ('property="og:title"', 'property="og:description"', 'property="og:image"', 'rel="canonical"'):
             if tag not in html: fail("%s → missing %s" % (r, tag))
     if html.count("<h1") > 1: fail("%s → more than one h1" % r)
