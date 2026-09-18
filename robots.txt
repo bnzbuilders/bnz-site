@@ -1,6 +1,5 @@
 User-agent: *
 Allow: /
 Disallow: /thanks/
-Disallow: /login/
 
 Sitemap: https://buildwithbnz.com/sitemap.xml

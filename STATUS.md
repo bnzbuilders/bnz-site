@@ -8,8 +8,7 @@ at 1440 and 390; console clean).
 
 - **Marketing site, 24 generated pages** on the project-based model: home,
   /solutions, /crew, /sara /taylor /emma, /how-it-works,
-  /what-we-connect-to, /faq, /book, /thanks, /login (invitation notice),
-  /privacy, /terms, /contact, 404, and seven problem-based SEO landers
+  /what-we-connect-to, /faq, /book, /thanks, /privacy, /terms, /contact, 404, and seven problem-based SEO landers
   (/construction-estimating-ai, /subcontractor-procurement,
   /construction-bid-management, /construction-project-management-ai,
   /ai-for-general-contractors, /commercial-construction-estimating,
@@ -18,7 +17,15 @@ at 1440 and 390; console clean).
   the generated pages — enforced by `_build/check.py`, which fails the build
   on any of that language, on model names, or on "Get started".
 - **Only conversion is BOOK A PROJECT REVIEW.** Nav, hero, every section
-  end, footer. Login is a small muted link.
+  end, footer. No login anywhere — the crew is installed into the
+  contractor's own systems, so there is no customer portal to log into
+  (Jose, 17 Sep). /login redirects home.
+- **Crew characters from the character sheet** (18 Sep): Sara plate-with-window,
+  Taylor set square, Emma bracket, as one inline SVG sprite per page. Static
+  at avatar sizes (nav menu, mocks, tiles, 64 px cards); animated (float,
+  glint, facet pulse + each one's own motion — Sara's bar seating, Taylor's
+  trace, Emma's dock) on the crew cards, the agent-page heroes and the
+  how-they-work-together diagram. Reduced motion swaps to the static marks.
 - **Solutions ▾ mega-menu** (M9): by problem → the four solutions, by
   contractor → the four landers; keyboard reachable, Esc closes. Mobile
   drawer with a Solutions accordion.
@@ -27,8 +34,9 @@ at 1440 and 390; console clean).
   last and forward; M3 six-step numerals count up; M4 every SAMPLE DATA mock
   reveals row by row; M5 Monday-report counters; M6 Solutions cards stack
   with a UI moment each (Basis types itself · quote arrives and re-levels ·
-  Reported → Verified · wage schedule verifies); M7 integrations conveyor
-  drifts, hover pauses, loops seamlessly; M8 FAQ accordion. Every entrance
+  Reported → Verified · wage schedule verifies); M7 integrations waterfall —
+  Beam-style brick rows of tiles drifting down through a masked window,
+  hover pauses, loops seamlessly; M8 FAQ accordion. Every entrance
   fires once at 20 % in view. `prefers-reduced-motion` turns all of it into
   the final frame — checked.
 - **Lead form on /book** posts to FormSubmit → **saracooper@bnzbuildersinc.com**
@@ -38,9 +46,7 @@ at 1440 and 390; console clean).
   fields pre-filled, so no request is lost. Honeypot field, no captcha.
 - **SEO:** one H1 per page, Open Graph + Twitter tags and a canonical on
   every generated page, `og.png` 1200×630, Organization + WebSite JSON-LD
-  on the home page, FAQPage JSON-LD on /faq, full `sitemap.xml` (24 URLs
-  incl. the legacy pages), `robots.txt` fixed (only /thanks and /login
-  disallowed — both real).
+  on the home page, FAQPage JSON-LD on /faq, full `sitemap.xml` (incl. the legacy pages), `robots.txt` fixed (only /thanks disallowed).
 - **Generator:** `_build/build.py` regenerates everything from
   `_build/content_*.py` + `_build/shared.py`; `_build/check.py` sweeps links,
   orphans, language and tags. No build step for hosting — GitHub Pages
@@ -56,12 +62,11 @@ at 1440 and 390; console clean).
   creates a row in a Notion database and pings the inbox. Designed as a
   Cloudflare Worker (Notion token as a Worker secret; the site's one
   constant `LEAD_ENDPOINT` in `assets/js/bnz.js` swaps to the Worker URL).
-  Not deployed yet — needs a Notion integration token created from the
-  saracooper workspace.
+  Code and setup steps are in `_plumbing/` (Worker + README). Not deployed
+  yet — needs a Notion integration token created from the saracooper
+  workspace and a Cloudflare Worker; ~15 minutes, steps in the README.
 - **Calendar embed** on /book and the book strip is a labelled placeholder
   (Cal.com / Calendly undecided). The form is the booking route today.
-- **Crew characters** are labelled placeholder circles pending the character
-  sheet (01-crew-character-prompt.md).
 - **Proof section** carries three labelled metric slots — Bilal to supply
   the one real NY project and confirm every number is from the record.
 - **Legacy BNZ Builders pages** (/about /services /public-works /credentials
@@ -81,8 +86,6 @@ at 1440 and 390; console clean).
 - The product workspace (Group B: Today, Projects, Files, Estimate,
   Subcontractors, Ask the crew, Approvals, Monday report, Admin pipeline).
   Backend infrastructure paused by Jose on 17 Sep.
-- Customer login. /login explains access is by invitation and routes to the
-  inbox; there is no auth behind it.
 - Real integrations. The "connected today" row describes the product; no
   OAuth exists yet.
 
