@@ -1,118 +1,57 @@
-<!DOCTYPE html>
-<html lang="en" data-app="">
+<!doctype html>
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Sign in — BuildWithBNZ</title>
-<meta name="description" content="Sign in to your BuildWithBNZ workspace.">
+<title>Login — Customer Workspace | BuildWithBNZ</title>
+<meta name="description" content="The BuildWithBNZ workspace is opened per project after your Project Review. Access is by invitation.">
 <link rel="canonical" href="https://buildwithbnz.com/login/">
-<meta name="theme-color" content="#0a0a0a">
-<meta name="robots" content="noindex,follow">
+<meta name="robots" content="noindex,follow"><meta name="theme-color" content="#0A0A0A">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="BuildWithBNZ">
+<meta property="og:title" content="Login — Customer Workspace | BuildWithBNZ">
+<meta property="og:description" content="The BuildWithBNZ workspace is opened per project after your Project Review. Access is by invitation.">
+<meta property="og:url" content="https://buildwithbnz.com/login/">
+<meta property="og:image" content="https://buildwithbnz.com/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Login — Customer Workspace | BuildWithBNZ">
+<meta name="twitter:description" content="The BuildWithBNZ workspace is opened per project after your Project Review. Access is by invitation.">
+<meta name="twitter:image" content="https://buildwithbnz.com/og.png">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,400..900&family=Space+Grotesk:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="/assets/css/site.css">
-<link rel="stylesheet" href="/assets/css/components.css">
-<link rel="stylesheet" href="/assets/css/motion.css">
-<script>document.documentElement.className+=" js"</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,400..900&family=Space+Grotesk:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/assets/css/bnz.css">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <header class="nav">
-  <div class="nav-in">
-    <a class="brand" href="/" aria-label="BuildWithBNZ — home">
-      <span class="brand-mark" aria-hidden="true">B</span>
-      <span class="brand-name">BuildWithBNZ</span>
-    </a>
-    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav-links">
-      <span class="menu-bars" aria-hidden="true"><i></i><i></i><i></i></span>
-      <span class="menu-word">Menu</span>
-    </button>
-    <nav class="nav-links" id="nav-links" aria-label="Primary"><a href="/">Home</a><a href="/crew/">AI Crew</a><a href="/#how-it-works">How It Works</a><a href="/#pricing">Pricing</a><a href="/login/" aria-current="page">Login</a></nav>
-    <a class="btn btn-sm nav-cta" href="/#pricing">Get Started</a>
-  </div>
+<div class="wrap">
+<a class="brand" href="/" aria-label="BuildWithBNZ home"><span class="mark">B</span>BuildWithBNZ</a>
+<nav class="nav-links" aria-label="Primary">
+<div class="has-menu"><button type="button" aria-haspopup="true" aria-expanded="false">Solutions <span class="car">▼</span></button><div class="mega" role="menu"><div class="col"><h4 class="eyebrow mute">By problem</h4><a class="row" href="/construction-estimating-ai/"><span class="av t x24" aria-hidden="true">T</span><div><b>Estimating &amp; takeoff</b><span>Taylor reads the package and builds the estimate with every assumption shown.</span></div><span class="chip unknown">Unknown when it should be</span></a><a class="row" href="/subcontractor-procurement/"><span class="av e x24" aria-hidden="true">E</span><div><b>Subcontractor bidding &amp; buyout</b><span>Emma builds the list, sends invitations, chases, levels.</span></div><span class="chip waiting">Waiting on — named</span></a><a class="row" href="/construction-project-management-ai/"><span class="av s x24" aria-hidden="true">S</span><div><b>Operations &amp; approvals</b><span>Sara runs Today, the queue and the Monday report.</span></div><span class="chip verified">Verified vs reported</span></a><a class="row" href="/prevailing-wage-project-management/"><span class="av t x24" aria-hidden="true">T</span><div><b>Public work &amp; prevailing wage</b><span>Wage schedules, addenda, bid forms, certified payroll docs handled by the book.</span></div><span class="chip cross">Cross-checked</span></a></div><div class="col list"><h4 class="eyebrow mute">By contractor</h4><a href="/ai-for-general-contractors/">General contractors</a><a href="/commercial-construction-estimating/">Remodelers &amp; custom builders</a><a href="/construction-bid-management/">Specialty contractors</a><a href="/prevailing-wage-project-management/">GCs bidding public work</a></div><div class="foot"><a href="/what-we-connect-to/">What we connect to →</a><a class="link" href="/book/">Book a project review ↗</a></div></div></div>
+<a href="/crew/">The crew</a><a href="/how-it-works/">How it works</a><a href="/faq/">FAQ</a>
+<a class="nav-login" href="/login/">Login</a>
+</nav>
+<a class="btn primary sm nav-cta" href="/book/">Book a project review <span class="g">↗</span></a>
+<button class="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="drawer"><span></span><span></span><span></span></button>
+</div>
+<div class="drawer" id="drawer">
+<details><summary>Solutions</summary><a href="/solutions/">All solutions</a><a href="/construction-estimating-ai/">Estimating &amp; takeoff</a><a href="/subcontractor-procurement/">Subcontractor bidding &amp; buyout</a><a href="/construction-project-management-ai/">Operations &amp; approvals</a><a href="/prevailing-wage-project-management/">Public work &amp; prevailing wage</a><a href="/ai-for-general-contractors/">General contractors</a><a href="/commercial-construction-estimating/">Remodelers &amp; custom builders</a><a href="/construction-bid-management/">Specialty contractors</a><a href="/prevailing-wage-project-management/">GCs bidding public work</a><a href="/what-we-connect-to/">What we connect to</a></details>
+<a href="/crew/">The crew</a><a href="/how-it-works/">How it works</a><a href="/faq/">FAQ</a>
+<a href="/login/">Login</a>
+<a class="btn primary" href="/book/">Book a project review <span class="g">↗</span></a>
+</div>
 </header>
 <main id="main">
-<section class="wrap" style="min-height:60vh;display:grid;place-items:center">
-  <div class="auth-wrap" style="width:100%">
-    <p class="mono mono-em center">Workspace access</p>
-    <h1 class="display center" style="font-size:clamp(2rem,4vw,3rem);margin-bottom:8px">Sign in</h1>
-    <p class="body-text center" style="margin-bottom:26px">Access your company's BuildWithBNZ workspace.</p>
-
-    <form class="form" id="login-form" style="margin-top:0" novalidate>
-      <label for="email">Work email</label>
-      <input id="email" name="email" type="email" required autocomplete="email">
-      <div class="field-err" data-for="email"></div>
-
-      <label for="password">Password</label>
-      <input id="password" name="password" type="password" required autocomplete="current-password">
-      <div class="field-err" data-for="password"></div>
-
-      <button class="btn btn-block" type="submit">Sign in</button>
-      <div id="login-msg" class="form-msg err" role="alert" hidden></div>
-    </form>
-
-    <p class="body-text center" style="margin-top:20px;font-size:.9rem">
-      New here? <a href="/#pricing" style="color:var(--ember)">Choose a plan</a> ·
-      Need help? <a href="/contact/" style="color:var(--ember)">Contact us</a>
-    </p>
-  </div>
-</section>
+<section class="dark first"><div class="wrap"><div class="prose fx"><span class="eyebrow">Customer workspace</span><h2 style="margin-top:14px">Access is by invitation.</h2><p class="lede">The workspace is opened per project once scope and price are agreed in writing. If you're a customer and your invitation hasn't arrived, email <a class="link" href="mailto:saracooper@bnzbuildersinc.com">saracooper@bnzbuildersinc.com</a> from the address on your scope document.</p><p style="margin-top:18px"><a class="btn ghost" href="/book/">New here? Book a project review <span class="g">↗</span></a></p></div></div></section>
 </main>
-<footer class="foot">
-  <div class="wrap">
-    <div class="foot-bar">
-      <span>© 2026 BNZ Builders Inc. · 424 Rockaway Turnpike, Cedarhurst, NY 11516 · <a href="tel:+13322581401">1-332-258-1401</a></span>
-      <span><a href="/crew/">AI Crew</a> · <a href="/contact/">Contact</a> · <a href="/privacy/">Privacy</a> · <a href="/terms/">Terms</a></span>
-    </div>
-  </div>
+<footer>
+<div class="wrap">
+<div><a class="brand" href="/"><span class="mark">B</span>BuildWithBNZ</a><p class="addr" style="margin-top:10px">New York · <a href="mailto:saracooper@bnzbuildersinc.com">saracooper@bnzbuildersinc.com</a> · <a href="tel:+1-332-258-1401">1-332-258-1401</a></p></div>
+<nav aria-label="Footer"><a href="/solutions/">Solutions</a><a href="/what-we-connect-to/">What we connect to</a><a href="/login/">Login</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a></nav>
+</div>
 </footer>
-<script src="/assets/js/site.js" defer></script>
-<script src="/assets/js/motion.js" defer></script>
-<script>
-(() => {
-  const form = document.getElementById("login-form");
-  const msg = document.getElementById("login-msg");
-  // The authenticated workspace app URL. Set data-app on <html> (or window.BNZ_APP)
-  // to the deployed app origin, e.g. "https://app.buildwithbnz.com". Empty = not yet wired.
-  const APP = (document.documentElement.dataset.app || window.BNZ_APP || "").replace(/\/$/, "");
-  const setErr = (n, t) => { const e = form.querySelector(`.field-err[data-for="${n}"]`); if (e) e.textContent = t || ""; };
-  const emailOk = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    msg.hidden = true;
-    let ok = true;
-    const email = form.email.value.trim(), pass = form.password.value;
-    if (!emailOk(email)) { setErr("email", "Enter a valid work email."); ok = false; } else setErr("email", "");
-    if (!pass) { setErr("password", "Enter your password."); ok = false; } else setErr("password", "");
-    if (!ok) return;
-
-    if (!APP) {
-      msg.textContent = "Workspace sign-in isn't connected at this address yet. Please contact us and we'll get you in.";
-      msg.hidden = false;
-      return;
-    }
-    const btn = form.querySelector("button[type=submit]");
-    btn.disabled = true; btn.setAttribute("aria-busy", "true"); const t = btn.textContent; btn.textContent = "Signing in…";
-    try {
-      const res = await fetch(`${APP}/api/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify({ email, password: pass }),
-      });
-      const data = await res.json().catch(() => ({}));
-      if (res.ok && data.url) { window.location.assign(data.url); return; }
-      throw new Error(data.error || `Sign-in failed (${res.status}).`);
-    } catch (err) {
-      btn.disabled = false; btn.removeAttribute("aria-busy"); btn.textContent = t;
-      msg.textContent = (err.message === "Failed to fetch"
-        ? "Could not reach the workspace. Check your connection and try again."
-        : err.message) + " If this continues, contact us.";
-      msg.hidden = false;
-    }
-  });
-})();
-</script>
-</body></html>
+<script src="/assets/js/bnz.js" defer></script>
+</body>
+</html>
