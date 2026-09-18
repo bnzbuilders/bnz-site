@@ -1,5 +1,20 @@
 User-agent: *
 Allow: /
 Disallow: /thanks/
+Disallow: /ops.html
+Disallow: /ops/
+Disallow: /copy/
+Disallow: /docs/
+Disallow: /activate/
+Disallow: /app/
+Disallow: /app/index.html
+Disallow: /app/os.html
+Disallow: /app/vienna.html
+Disallow: /app/indian-trail.html
+Disallow: /app/actions.html
+Disallow: /app/data/
+Disallow: /app/_shot
+Disallow: /_build/
+Disallow: /_plumbing/
 
 Sitemap: https://buildwithbnz.com/sitemap.xml
